@@ -3,7 +3,7 @@ Description=Slack fstbot service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/ubuntu/slackbot/fstbot.py
+ExecStart=cd /home/ubuntu/slackbot && python fstbot.py
 
 [Install]
 WantedBy=multi-user.target
