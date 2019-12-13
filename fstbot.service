@@ -3,7 +3,12 @@ Description=Slack fstbot service
 
 [Service]
 Type=simple
-ExecStart=/bin/bash fstbot.sh
+ExecStart=/home/ubuntu/.pyenv/versions/3.7.4/envs/fstbot/bin/python /home/ubuntu/slackbot/fstbot.py
+WorkingDirectory=/home/ubuntu/slackbot/
+Restart=always
+Environment="SLACK_API_TOKEN=xoxb-86170854235....."
+StandardOutput=journal+console
 
 [Install]
 WantedBy=multi-user.target
+
