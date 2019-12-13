@@ -3,6 +3,13 @@ import certifi
 import os
 from slack import RTMClient
 import feedparser
+import datetime
+import requests, json
+
+
+def printMsg(txt):
+  datetime_object = datetime.datetime.now()
+  print('['+str(datetime_object)+'] - ' + txt )
 
 def help(channel_id,user,web_client):
     web_client.chat_postMessage(channel=channel_id,text=f"Hola <@{user}>! , veo que necesitas ayuda. Este es un listado de las cosas que puedes hacer llamandome:")
@@ -75,11 +82,17 @@ def triNews(ssl_context,channel_id,user,web_client,thread_ts):
 def say_hello(**payload):
     data = payload['data']
     web_client = payload['web_client']
-
+    
     if 'fstbot' in str(data.get('text')).lower():
         channel_id = str(data.get('channel'))
         thread_ts = str(data.get('ts'))
         user = str(data.get('user'))
+        
+        userObject = {'token': slack_token, 'user': user}
+        r = requests.get('https://slack.com/api/users.info', params=userObject)
+        print(r.json())
+
+        printMsg('user ' + user + ' has requested ' + '" ' + str(data.get('text')).lower() + ' "')
         if 'fstbot' in str(data.get('text')).lower() and 'quien es juanjo' in str(data.get('text')):
             quienesjuano(channel_id,user,web_client,thread_ts)
         elif 'fstbot' in str(data.get('text')).lower() and 'tri noticias' in str(data.get('text')):
@@ -98,5 +111,6 @@ rtm_client = RTMClient(
   connect_method='rtm.start',
   ssl=ssl_context
 )
+printMsg('start..')
 rtm_client.start()
 
