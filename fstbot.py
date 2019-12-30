@@ -5,6 +5,7 @@ from slack import RTMClient
 import feedparser
 import datetime
 import requests, json
+from flask import Flask, request, Response, jsonify, json
 
 
 def printMsg(txt):
@@ -80,48 +81,33 @@ def triNews(ssl_context,channel_id,user,web_client,thread_ts):
 
 def salidaBici(channel_id,user,web_client,thread_ts):
       web_client.views_open(
-          trigger_id="3213746830.000023",
-          view = [
-          {
-            "type": "input",
-            "element": {
-              "type": "plain_text_input",
-              "action_id": "sl_input",
-              "placeholder": {
-                "type": "plain_text",
-                "text": "Placeholder text for single-line input"
+          trigger_id="123maraco.maraco",
+          view = {
+            "type": "modal",
+            "callback_id": "modal-identifier",
+            "title": {
+              "type": "plain_text",
+              "text": "Just a modal"
+            },
+            "blocks": [
+              {
+                "type": "section",
+                "block_id": "section-identifier",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Welcome* to ~my~ Block Kit _modal_!"
+                },
+                "accessory": {
+                  "type": "button",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Just a button"
+                  },
+                  "action_id": "button-identifier"
+                }
               }
-            },
-            "label": {
-              "type": "plain_text",
-              "text": "Label"
-            },
-            "hint": {
-              "type": "plain_text",
-              "text": "Hint text"
-            }
-          },
-          {
-            "type": "input",
-            "element": {
-              "type": "plain_text_input",
-              "action_id": "ml_input",
-              "multiline": "true",
-              "placeholder": {
-                "type": "plain_text",
-                "text": "Placeholder text for multi-line input"
-              }
-            },
-            "label": {
-              "type": "plain_text",
-              "text": "Label"
-            },
-            "hint": {
-              "type": "plain_text",
-              "text": "Hint text"
-            }
+            ]
           }
-        ]
     )
     # web_client.chat_postMessage(
     #   channel=channel_id,
@@ -167,4 +153,5 @@ rtm_client = RTMClient(
 )
 printMsg('start..')
 rtm_client.start()
+
 
