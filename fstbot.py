@@ -120,6 +120,8 @@ def salidaBici(channel_id,user,web_client,thread_ts):
 def say_hello(**payload):
     data = payload['data']
     web_client = payload['web_client']
+    print(data)
+    print('---------------------------------------------------------------------------------')
     
     if 'fstbot' in str(data.get('text')).lower():
         channel_id = str(data.get('channel'))
