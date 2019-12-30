@@ -78,6 +78,58 @@ def triNews(ssl_context,channel_id,user,web_client,thread_ts):
         )
 
 
+def salidaBici(channel_id,user,web_client,thread_ts):
+      web_client.views_open(
+          trigger_id="3213746830.000023",
+          view = [
+          {
+            "type": "input",
+            "element": {
+              "type": "plain_text_input",
+              "action_id": "sl_input",
+              "placeholder": {
+                "type": "plain_text",
+                "text": "Placeholder text for single-line input"
+              }
+            },
+            "label": {
+              "type": "plain_text",
+              "text": "Label"
+            },
+            "hint": {
+              "type": "plain_text",
+              "text": "Hint text"
+            }
+          },
+          {
+            "type": "input",
+            "element": {
+              "type": "plain_text_input",
+              "action_id": "ml_input",
+              "multiline": "true",
+              "placeholder": {
+                "type": "plain_text",
+                "text": "Placeholder text for multi-line input"
+              }
+            },
+            "label": {
+              "type": "plain_text",
+              "text": "Label"
+            },
+            "hint": {
+              "type": "plain_text",
+              "text": "Hint text"
+            }
+          }
+        ]
+    )
+    # web_client.chat_postMessage(
+    #   channel=channel_id,
+    #   thread_ts=thread_ts,
+    #   blocks = 
+    # )
+
+
 @RTMClient.run_on(event="message")
 def say_hello(**payload):
     data = payload['data']
@@ -99,6 +151,8 @@ def say_hello(**payload):
             triNews(ssl_context,channel_id,user,web_client,thread_ts)
         elif 'fstbot' in str(data.get('text')).lower() and 'horario gym' in str(data.get('text')):
             horariosFitness(channel_id,user,web_client,thread_ts)
+        elif 'fstbot' in str(data.get('text')).lower() and 'salida bici' in str(data.get('text')):
+            salidaBici(channel_id,user,web_client,thread_ts)
         else:
             help(channel_id,user,web_client)
 
