@@ -1,7 +1,7 @@
 # slackbot
 
-
-# Current status (mipiri - dev)
+## Desarrollo
+### Current status (mipiri - dev)
 
 - Al parecer para poder crear un formulario en plan modal, hay que tener datos como el trigger_id que se obtienen agregando un "event action" los event actions necesitan de una url para hacer call_back. El event action se puede ver desde el menu de slack.
 
@@ -11,9 +11,14 @@
 
 - Probablemente el fstbot quedará aparte de lo que será la propuesta de salidas en bici.
 
+### La ejecución en local
 
+````
+python receive.py
+````
 
-# Requirements
+## Prod
+### Requirements
 
 - Python 3.7
 - pip libraries
@@ -21,13 +26,12 @@
 ```
 pip install slackclient
 pip install certifi
-pip install certifi
 pip install feedparser
 pip install flask
 
 ```
 
-# How to run it ?
+### How to run it ?
 
 1. Export the variable token
 
