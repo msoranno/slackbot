@@ -24,9 +24,11 @@ python receive.py
 - pip libraries
 
 ```
+pip install --upgrade pip
 pip install slackclient
 pip install certifi
 pip install feedparser
+pip install requests 
 pip install flask
 
 ```
