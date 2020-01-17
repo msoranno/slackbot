@@ -196,7 +196,6 @@ def inbound():
 		x = threading.Thread(target=salidaBici,args=(trigger_id,callback_id,client))
 		x.start()		
 		return txtWait
-
 	
 def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel):
     web_client.chat_postMessage(
@@ -231,7 +230,6 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel):
     message = {"text": txtBye}
     res = requests.post(callback_id, json=message)
     print('respuesta:',res)
-
 
 def salidaBici(trigger_id,callback_id,client):
 	open_dialog = client.views_open(
@@ -308,7 +306,6 @@ def help(channel_id,user,web_client,callback_id):
     message = {"text": txtBye}
     res = requests.post(callback_id, json=message)
     print('respuesta:',res)
-
 
 # def quienesjuano(channel_id,user,web_client,thread_ts):
 def quienesjuano(channel_id,user,web_client,callback_id):
