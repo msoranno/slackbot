@@ -17,6 +17,9 @@ SALIDABICI = {}
 g_channel_id = "CRB74AX8U" 
 user_id = ""
 callback_id = ""
+FOTOSDRIVE = {}
+FOTOSDRIVE['1'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
+FOTOSDRIVE['2'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
 
 
 # -----------------
@@ -98,17 +101,21 @@ def outbound():
 		keypart1 = userID+'.'+userName
 		keypart2 = keypart1+'.txtRuta'
 		SALIDABICI[keypart2] = txtRuta 
-		print(txtRuta)
+		#print(txtRuta)
 		print(SALIDABICI)
 		# Aqui ahora solo tocaría mandar el mensaje, descomponer del dict los valores 
 		# que vayamos a meter en el block del mensaje y pasarlos todo como parametro
 		# hay que resolver el problema de como obtener el channel_id de forma dinámica
 		# 
-		proponerSalidaBici(g_channel_id, user_id, client,callback_id,'bajo')
+		nivelSalida = SALIDABICI[userID + '.' + userName + '.nivelSalida']
+		duracionSalida = SALIDABICI[userID + '.' + userName + '.duracionSalida']
+		txtRuta = SALIDABICI[userID + '.' + userName + '.txtRuta']
+		
+		proponerSalidaBici(g_channel_id, user_id, client,callback_id,nivelSalida,duracionSalida, txtRuta )
 	
 	if message_type == "block_actions":
-		# print("------------------raw resp-----------------")
-		# print(request.form)
+		print("------------------block_actions-----------------")
+		print(request.form)
 		
 		actionID = message_action["actions"][0]["action_id"]
 		blockID = message_action["actions"][0]["block_id"]
@@ -129,6 +136,23 @@ def outbound():
 			keypart2 = keypart1+'.duracionSalida'
 			print('Duración Salida:' , duracionSalida)
 			SALIDABICI[keypart2] = duracionSalida  
+		
+		#--
+		# En caso de querer retomar el tema de las botones de accion
+		#--
+		# if blockID == "voyNoVoy":
+		# 	clickValue = message_action["actions"][0]["value"]
+		# 	if clickValue == "click_voy":
+		# 		#nivelSalida = SALIDABICI[userID + '.' + userName + '.nivelSalida']
+		# 		#duracionSalida = SALIDABICI[userID + '.' + userName + '.duracionSalida']
+		# 		#txtRuta = SALIDABICI[userID + '.' + userName + '.txtRuta']
+		# 		voy_action_ts = message_action["actions"][0]["action_ts"]
+		# 		voy_channel_id = message_action["channel"]["id"]
+		# 		voy_channel_name = message_action["channel"]["name"]
+		# 		voy_token =  message_action["token"]
+		# 		voy_message_ts = message_action["message"]["ts"]
+		# 		#UpdateproponerSalidaBici(voy_channel_id, user_id, client,callback_id,nivelSalida,duracionSalida,txtRuta,voy_message_ts,userName )
+		# 		UpdateproponerSalidaBici(voy_channel_id, user_id, client,callback_id,voy_message_ts,userName )
 			
 	
 	# Making empty responses to make slack api happy
@@ -196,40 +220,204 @@ def inbound():
 		x = threading.Thread(target=salidaBici,args=(trigger_id,callback_id,client))
 		x.start()		
 		return txtWait
-	
-def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel):
+
+
+# def UpdateproponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, duracion_salida, texto_ruta,message_ts,userName):
+#-- 
+# Método para actualizar un mensaje previo, no está bien logrado, hay que darle mas vueltas... probablemente usar un backend
+# para guardar datos.
+# En la actualización debe ir el bloque completo para actualice exactamente el mismo mensaje.
+#--
+#     web_client.chat_update(
+#       channel=channel_id,
+#       ts=message_ts,
+# 	  text=":white_check_mark: " + userName,
+#       blocks = [
+# 	        {
+# 				"type": "divider"
+# 			},
+# 			{
+# 				"type": "section",
+# 				"text": {
+# 					"type": "mrkdwn",
+# 					"text": "*La ruta:*\n" + texto_ruta
+# 				}
+# 			},
+# 			{
+# 				"type": "section",
+# 				"fields": [
+# 					{
+# 						"type": "mrkdwn",
+# 						"text": "*Nivel:*\n" + salida_nivel
+# 					},
+# 					{
+# 						"type": "mrkdwn",
+# 						"text": "*Duración:*\n" + duracion_salida
+# 					}
+# 				]
+# 			},
+# 			{
+# 				"type": "image",
+# 				"title": {
+# 					"type": "plain_text",
+# 					"text": "foto aleatoria.... Esto ha cambiado"
+# 				},
+# 				"image_url": "https://drive.google.com/uc?id=1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO",
+# 				"alt_text": "Example Image"
+# 			},
+# 			{
+# 				"type": "divider"
+# 			},
+# 			{
+# 				"type": "actions",
+# 				"block_id": "voyNoVoy",
+# 				"elements": [
+# 					{
+# 						"type": "button",
+# 						"text": {
+# 							"type": "plain_text",
+# 							"text": "VOY\n" + userName + ' '
+# 						},
+# 						"style": "primary",
+# 						"value": "click_voy"
+# 					},
+# 					{
+# 						"type": "button",
+# 						"text": {
+# 							"type": "plain_text",
+# 							"text": "NO ES SEGURO"
+# 						},
+# 						"style": "danger",
+# 						"value": "click_noSeguro"
+# 					}
+# 				]
+# 			},
+# 			{
+# 				"type": "divider"
+# 			}
+#       ]    
+
+
+#     )
+
+def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, duracion_salida, texto_ruta):
+
+   
+
     web_client.chat_postMessage(
       channel=channel_id,
       # thread_ts=thread_ts,
       blocks = [
+	        {
+				"type": "divider"
+			},
+			{
+				"type": "section",
+				"text": {
+					"type": "mrkdwn",
+					"text": "*La ruta:*\n" + texto_ruta
+				}
+			},
 			{
 				"type": "section",
 				"fields": [
 					{
-						"type": "plain_text",
-						"text": "**Nivel: **" + salida_nivel
+						"type": "mrkdwn",
+						"text": "*Nivel:*\n" + salida_nivel
 					},
 					{
-						"type": "plain_text",
-						"text": "**Nivel: **" + salida_nivel
+						"type": "mrkdwn",
+						"text": "*Duración:*\n" + duracion_salida
 					}
 				]
 			},
 			{
-			"type": "image",
-			"title": {
-				"type": "plain_text",
-				"text": "Menudo pajaro!!!"
+				"type": "image",
+				"title": {
+					"type": "plain_text",
+					"text": "foto aleatoria...."
+				},
+				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE['1'],
+				"alt_text": "Example Image"
 			},
-			"image_url": "https://drive.google.com/uc?id=1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO",
-			"alt_text": "Example Image"
-		    }
+			{
+				"type": "divider"
+			}
       ]    
     )
-    # response to Slack after processing is finished
-    message = {"text": txtBye}
-    res = requests.post(callback_id, json=message)
-    print('respuesta:',res)
+
+# def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, duracion_salida, texto_ruta):
+# --
+# Dejaré este codigo aqui solo para tener una referencia de como crear botones de accion.
+# -- 
+#     web_client.chat_postMessage(
+#       channel=channel_id,
+#       # thread_ts=thread_ts,
+#       blocks = [
+# 	        {
+# 				"type": "divider"
+# 			},
+# 			{
+# 				"type": "section",
+# 				"text": {
+# 					"type": "mrkdwn",
+# 					"text": "*La ruta:*\n" + texto_ruta
+# 				}
+# 			},
+# 			{
+# 				"type": "section",
+# 				"fields": [
+# 					{
+# 						"type": "mrkdwn",
+# 						"text": "*Nivel:*\n" + salida_nivel
+# 					},
+# 					{
+# 						"type": "mrkdwn",
+# 						"text": "*Duración:*\n" + duracion_salida
+# 					}
+# 				]
+# 			},
+# 			{
+# 				"type": "image",
+# 				"title": {
+# 					"type": "plain_text",
+# 					"text": "foto aleatoria...."
+# 				},
+# 				"image_url": "https://drive.google.com/uc?id=1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO",
+# 				"alt_text": "Example Image"
+# 			},
+# 			{
+# 				"type": "divider"
+# 			},
+# 			{
+# 				"type": "actions",
+# 				"block_id": "voyNoVoy",
+# 				"elements": [
+# 					{
+# 						"type": "button",
+# 						"text": {
+# 							"type": "plain_text",
+# 							"text": "VOY"
+# 						},
+# 						"style": "primary",
+# 						"value": "click_voy"
+# 					},
+# 					{
+# 						"type": "button",
+# 						"text": {
+# 							"type": "plain_text",
+# 							"text": "NO ES SEGURO"
+# 						},
+# 						"style": "danger",
+# 						"value": "click_noSeguro"
+# 					}
+# 				]
+# 			},
+# 			{
+# 				"type": "divider"
+# 			}
+#       ]    
+#     )
 
 def salidaBici(trigger_id,callback_id,client):
 	open_dialog = client.views_open(
