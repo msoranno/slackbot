@@ -6,6 +6,7 @@ import requests
 import threading
 from flask import Flask, request, Response, jsonify, json, make_response
 import ssl as ssl_lib
+from random import randrange
 
 # Globals
 app = Flask(__name__)
@@ -18,9 +19,22 @@ g_channel_id = "CRB74AX8U"
 user_id = ""
 callback_id = ""
 FOTOSDRIVE = {}
-FOTOSDRIVE['1'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
-FOTOSDRIVE['2'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
-
+FOTOSDRIVE['0'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
+FOTOSDRIVE['1'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
+FOTOSDRIVE['2'] = "1KIkzRCVF4yGaenTvb4e6SkIjSXcigKr1"
+FOTOSDRIVE['3'] = "1K_7jzDeeC58s0hlpUOTCtSnfUU-Q727j"
+FOTOSDRIVE['4'] = "1K_xTQrdLevfEMYUfa3oJAYEVfQ7Ih15z"
+FOTOSDRIVE['5'] = "1LWkD-ELw60gQyR4IDEdQzWOtg_A3IJgb"
+FOTOSDRIVE['6'] = "1MIm8RuxjlG1vc2zkRwkALFeTzGedUFXP"
+FOTOSDRIVE['7'] = "1Lo9T_nOXCglDVfGZaxrx7iCqTvuF_alP"
+FOTOSDRIVE['8'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
+FOTOSDRIVE['9'] = "1L0GFard7_toEDFsk8sF5PguVahzA5eZ7"
+FOTOSDRIVE['11'] = "1LM_jMxNkI5a3kr2CFMfgmmUH23w3xzHf"
+FOTOSDRIVE['12'] = "1LKqMNsRMjhlqPQJFgGs0Zwsectdf-2yp"
+FOTOSDRIVE['13'] = "1KoHGVZ_O0cyLfzPeAg-4JNZI1Lqf9K9E"
+#FOTOSDRIVE['14'] = ""
+#FOTOSDRIVE['15'] = ""
+#FOTOSDRIVE['16'] = ""
 
 # -----------------
 # This is a working example using slack "event actions"
@@ -301,8 +315,7 @@ def inbound():
 #     )
 
 def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, duracion_salida, texto_ruta):
-
-   
+  
 
     web_client.chat_postMessage(
       channel=channel_id,
@@ -337,7 +350,7 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
 					"type": "plain_text",
 					"text": "foto aleatoria...."
 				},
-				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE['1'],
+				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE[str(randrange(len(FOTOSDRIVE)))],
 				"alt_text": "Example Image"
 			},
 			{
