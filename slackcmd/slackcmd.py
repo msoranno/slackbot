@@ -9,14 +9,31 @@ import ssl as ssl_lib
 from random import randrange
 from datetime import datetime
 
+# algunos exports requeridos
+# testing channel CRB74AX8U (mipiri)
+# fst
+# export SLACK_BIKE_CHANNEL_ID=CQ56F3UL9
+# export SLACK_BIKE_CHANNEL_NAME=salidas-bici
+# export SLACK_RUN_CHANNEL_ID=CQCKVFVA8
+# export SLACK_RUN_CHANNEL_NAME=tapias
+# export SLACK_GENERAL_CHANNEL_ID=CQCKS65UL
+# export SLACK_GENERAL_CHANNEL_NAME=general
+
 # Globals
 app = Flask(__name__)
 ssl_context = ssl_lib.create_default_context(cafile=certifi.where())
 client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'], ssl=ssl_context)
 txtWait = "procesando la petición .... por favor espere"
 SALIDABICI = {}
-g_channel_id = "CRB74AX8U" 
-txtBye = "mensaje de repuesta enviado al canal " + g_channel_id
+
+SLACK_BIKE_CHANNEL_ID = os.environ['SLACK_BIKE_CHANNEL_ID']
+SLACK_BIKE_CHANNEL_NAME = os.environ['SLACK_BIKE_CHANNEL_NAME']
+SLACK_RUN_CHANNEL_ID = os.environ['SLACK_RUN_CHANNEL_ID']
+SLACK_RUN_CHANNEL_NAME = os.environ['SLACK_RUN_CHANNEL_NAME']
+SLACK_GENERAL_CHANNEL_ID = os.environ['SLACK_GENERAL_CHANNEL_ID']
+SLACK_GENERAL_CHANNEL_NAME = os.environ['SLACK_GENERAL_CHANNEL_NAME']
+
+txtBye = "petición completada"
 user_id = ""
 callback_id = ""
 FOTOSDRIVE = {}
@@ -156,9 +173,9 @@ def outbound():
 			requiredValues = 1
 
 		if requiredValues == 0:
-			proponerSalidaBici(g_channel_id, userName, client,callback_id,nivelSalida,duracionSalida, txtRuta,fechaSalida, horaSalida )
+			proponerSalidaBici(SLACK_BIKE_CHANNEL_ID, userName, client,callback_id,nivelSalida,duracionSalida, txtRuta,fechaSalida, horaSalida )
 		else:
-			helpError(g_channel_id, userID, client,callback_id)
+			helpError(SLACK_BIKE_CHANNEL_ID, userID, client,callback_id)
 	
 	if message_type == "block_actions":
 		#print("------------------block_actions-----------------")
