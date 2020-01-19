@@ -37,15 +37,17 @@ wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
 unzip ngrok-stable-linux-amd64.zip
 ./ngrok authtoken 1UhGdCtYYrP5P....
 
-./ngrok http 5000
+./ngrok http -region eu 5000
 ````
+
+Ngrok en su version free soporta 1 proceso en cada region, hay 4 regiones en total: us,eu,ap,au
+
 
 ## Desarrollo
 ### Current status (mipiri - dev)
 
-- Cambiar icono del bot
-
-- Preparar la raspi para poder meter todo alli.
+- Pendiente:
+    - Hacer el formulario más generico de tal forma que sirva para cualquier actividad.
 
 ### La ejecución en local
 
@@ -75,6 +77,12 @@ pip install flask
 
 ``` 
 export SLACK_API_TOKEN="xoxb-861708542357-..."
+export SLACK_BIKE_CHANNEL_ID=
+export SLACK_BIKE_CHANNEL_NAME=salidas-bici
+export SLACK_RUN_CHANNEL_ID=
+export SLACK_RUN_CHANNEL_NAME=tapias
+export SLACK_GENERAL_CHANNEL_ID=
+export SLACK_GENERAL_CHANNEL_NAME=general
 ```
 2. Run the program
 
