@@ -5,6 +5,7 @@ from slack import RTMClient
 import feedparser
 import datetime
 import requests, json
+from flask import Flask, request, Response, jsonify, json
 
 
 def printMsg(txt):
@@ -78,29 +79,70 @@ def triNews(ssl_context,channel_id,user,web_client,thread_ts):
         )
 
 
+def salidaBici(channel_id,user,web_client,thread_ts):
+      web_client.views_open(
+          trigger_id="123maraco.maraco",
+          view = {
+            "type": "modal",
+            "callback_id": "modal-identifier",
+            "title": {
+              "type": "plain_text",
+              "text": "Just a modal"
+            },
+            "blocks": [
+              {
+                "type": "section",
+                "block_id": "section-identifier",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*Welcome* to ~my~ Block Kit _modal_!"
+                },
+                "accessory": {
+                  "type": "button",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Just a button"
+                  },
+                  "action_id": "button-identifier"
+                }
+              }
+            ]
+          }
+    )
+    # web_client.chat_postMessage(
+    #   channel=channel_id,
+    #   thread_ts=thread_ts,
+    #   blocks = 
+    # )
+
+
 @RTMClient.run_on(event="message")
 def say_hello(**payload):
     data = payload['data']
     web_client = payload['web_client']
-    
-    if 'fstbot' in str(data.get('text')).lower():
-        channel_id = str(data.get('channel'))
-        thread_ts = str(data.get('ts'))
-        user = str(data.get('user'))
+    print(data)
+    print('---------------------------------------------------------------------------------')
+    thread_ts = str(data.get('ts'))
+    # if 'fstbot' in str(data.get('text')).lower():
+    #     channel_id = str(data.get('channel'))
+    #     thread_ts = str(data.get('ts'))
+    #     user = str(data.get('user'))
         
-        userObject = {'token': slack_token, 'user': user}
-        r = requests.get('https://slack.com/api/users.info', params=userObject)
-        print(r.json())
+    #     userObject = {'token': slack_token, 'user': user}
+    #     r = requests.get('https://slack.com/api/users.info', params=userObject)
+    #     print(r.json())
 
-        printMsg('user ' + user + ' has requested ' + '" ' + str(data.get('text')).lower() + ' "')
-        if 'fstbot' in str(data.get('text')).lower() and 'quien es juanjo' in str(data.get('text')):
-            quienesjuano(channel_id,user,web_client,thread_ts)
-        elif 'fstbot' in str(data.get('text')).lower() and 'tri noticias' in str(data.get('text')):
-            triNews(ssl_context,channel_id,user,web_client,thread_ts)
-        elif 'fstbot' in str(data.get('text')).lower() and 'horario gym' in str(data.get('text')):
-            horariosFitness(channel_id,user,web_client,thread_ts)
-        else:
-            help(channel_id,user,web_client)
+    #     printMsg('user ' + user + ' has requested ' + '" ' + str(data.get('text')).lower() + ' "')
+    #     if 'fstbot' in str(data.get('text')).lower() and 'quien es juanjo' in str(data.get('text')):
+    #         quienesjuano(channel_id,user,web_client,thread_ts)
+    #     elif 'fstbot' in str(data.get('text')).lower() and 'tri noticias' in str(data.get('text')):
+    #         triNews(ssl_context,channel_id,user,web_client,thread_ts)
+    #     elif 'fstbot' in str(data.get('text')).lower() and 'horario gym' in str(data.get('text')):
+    #         horariosFitness(channel_id,user,web_client,thread_ts)
+    #     elif 'fstbot' in str(data.get('text')).lower() and 'salida bici' in str(data.get('text')):
+    #         salidaBici(channel_id,user,web_client,thread_ts)
+    #     else:
+    #         help(channel_id,user,web_client)
 
 
 # Main
@@ -113,4 +155,5 @@ rtm_client = RTMClient(
 )
 printMsg('start..')
 rtm_client.start()
+
 
