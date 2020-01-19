@@ -122,27 +122,27 @@ def say_hello(**payload):
     web_client = payload['web_client']
     print(data)
     print('---------------------------------------------------------------------------------')
-    
-    if 'fstbot' in str(data.get('text')).lower():
-        channel_id = str(data.get('channel'))
-        thread_ts = str(data.get('ts'))
-        user = str(data.get('user'))
+    thread_ts = str(data.get('ts'))
+    # if 'fstbot' in str(data.get('text')).lower():
+    #     channel_id = str(data.get('channel'))
+    #     thread_ts = str(data.get('ts'))
+    #     user = str(data.get('user'))
         
-        userObject = {'token': slack_token, 'user': user}
-        r = requests.get('https://slack.com/api/users.info', params=userObject)
-        print(r.json())
+    #     userObject = {'token': slack_token, 'user': user}
+    #     r = requests.get('https://slack.com/api/users.info', params=userObject)
+    #     print(r.json())
 
-        printMsg('user ' + user + ' has requested ' + '" ' + str(data.get('text')).lower() + ' "')
-        if 'fstbot' in str(data.get('text')).lower() and 'quien es juanjo' in str(data.get('text')):
-            quienesjuano(channel_id,user,web_client,thread_ts)
-        elif 'fstbot' in str(data.get('text')).lower() and 'tri noticias' in str(data.get('text')):
-            triNews(ssl_context,channel_id,user,web_client,thread_ts)
-        elif 'fstbot' in str(data.get('text')).lower() and 'horario gym' in str(data.get('text')):
-            horariosFitness(channel_id,user,web_client,thread_ts)
-        elif 'fstbot' in str(data.get('text')).lower() and 'salida bici' in str(data.get('text')):
-            salidaBici(channel_id,user,web_client,thread_ts)
-        else:
-            help(channel_id,user,web_client)
+    #     printMsg('user ' + user + ' has requested ' + '" ' + str(data.get('text')).lower() + ' "')
+    #     if 'fstbot' in str(data.get('text')).lower() and 'quien es juanjo' in str(data.get('text')):
+    #         quienesjuano(channel_id,user,web_client,thread_ts)
+    #     elif 'fstbot' in str(data.get('text')).lower() and 'tri noticias' in str(data.get('text')):
+    #         triNews(ssl_context,channel_id,user,web_client,thread_ts)
+    #     elif 'fstbot' in str(data.get('text')).lower() and 'horario gym' in str(data.get('text')):
+    #         horariosFitness(channel_id,user,web_client,thread_ts)
+    #     elif 'fstbot' in str(data.get('text')).lower() and 'salida bici' in str(data.get('text')):
+    #         salidaBici(channel_id,user,web_client,thread_ts)
+    #     else:
+    #         help(channel_id,user,web_client)
 
 
 # Main
