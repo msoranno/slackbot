@@ -161,8 +161,8 @@ def outbound():
 			helpError(g_channel_id, userID, client,callback_id)
 	
 	if message_type == "block_actions":
-		print("------------------block_actions-----------------")
-		print(request.form)
+		#print("------------------block_actions-----------------")
+		#print(request.form)
 		
 		actionID = message_action["actions"][0]["action_id"]
 		blockID = message_action["actions"][0]["block_id"]
@@ -292,7 +292,7 @@ def inbound():
 		return txtWait
 
 def respondProponerSalidaBici(channel_id,user,web_client,callback_id,message_ts,userName, vaOnoVa):
-	
+	print("El usuario: ", userName, "dice que: ", vaOnoVa)
 	if vaOnoVa == "voy":
 		web_client.chat_postMessage(
 			channel=channel_id,
@@ -327,8 +327,17 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
 			},
 			{
 				"type": "section",
-				"text": {"type": "mrkdwn","text":"*SALIDA EN BICI PROPUESTA POR:* " + user + "\n" + texto_ruta.strip() }
+				"text": {"type": "mrkdwn","text":":man-biking: *SALIDA EN BICI PROPUESTA POR:* " + user  + ':man-biking:'}
 			},
+			{
+				"type": "context",
+				"elements": [
+					{
+						"text":  texto_ruta.strip(),
+						"type": "mrkdwn"
+					}
+				]
+			},			
 			{
 				"type": "section",
 				"fields": [
