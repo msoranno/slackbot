@@ -1,9 +1,9 @@
 [Unit]
-Description=Slack fstbot service
+Description=Slack RTM service for fst
 
 [Service]
 Type=simple
-ExecStart=/home/ubuntu/.pyenv/versions/3.7.4/envs/fstbot/bin/python /home/ubuntu/slackbot/fstbot.py
+ExecStart=/home/ubuntu/.pyenv/versions/3.7.4/envs/fstbot/bin/python /home/ubuntu/slackbot/slackrtm.py
 WorkingDirectory=/home/ubuntu/slackbot/
 Restart=always
 Environment="SLACK_API_TOKEN=xoxb-86170854235....."
