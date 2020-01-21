@@ -7,7 +7,7 @@ import threading
 from flask import Flask, request, Response, jsonify, json, make_response
 import ssl as ssl_lib
 from random import randrange
-from datetime import datetime
+from datetime import date, timedelta
 
 # algunos exports requeridos
 # testing channel CRB74AX8U (mipiri)
@@ -137,6 +137,13 @@ def outbound():
 		# sacamos los datos del dict si existen
 		requiredValues = 0
 
+		checkKey =  userID + '.' + userName + '.tipoSalida'
+		if checkKey in SALIDABICI:
+			tipoSalida = SALIDABICI[checkKey]
+		else:
+			print("Key: ", checkKey, "NO EXISTE" )
+			requiredValues = 1
+
 		checkKey =  userID + '.' + userName + '.nivelSalida'
 		if checkKey in SALIDABICI:
 			nivelSalida = SALIDABICI[checkKey]
@@ -172,10 +179,24 @@ def outbound():
 			print("Key: ", checkKey, "NO EXISTE" )
 			requiredValues = 1
 
+		# aseguramos un canal
+		canal_slack_id = SLACK_BIKE_CHANNEL_ID
+		canal_slack_name = SLACK_BIKE_CHANNEL_NAME
 		if requiredValues == 0:
-			proponerSalidaBici(SLACK_BIKE_CHANNEL_ID, userName, client,callback_id,nivelSalida,duracionSalida, txtRuta,fechaSalida, horaSalida )
+			if tipoSalida == "ruta en bici de carretera" or tipoSalida == "ruta en bici de montaña":
+				canal_slack_id = SLACK_BIKE_CHANNEL_ID
+				canal_slack_name = SLACK_BIKE_CHANNEL_NAME
+			if tipoSalida == "carrera a pie" :
+				canal_slack_id = SLACK_RUN_CHANNEL_ID
+				canal_slack_name = SLACK_RUN_CHANNEL_NAME
+			if tipoSalida == "tomar algo" :
+				canal_slack_id  = SLACK_GENERAL_CHANNEL_ID
+				canal_slack_name  = SLACK_GENERAL_CHANNEL_NAME
+			
+			txtBye = "petición completada, revise el canal " + canal_slack_name
+			proponerSalidaBici(canal_slack_id, userName, client,callback_id,nivelSalida,duracionSalida, txtRuta,fechaSalida, horaSalida, tipoSalida )
 		else:
-			helpError(SLACK_BIKE_CHANNEL_ID, userID, client,callback_id)
+			helpError(canal_slack_id, userID, client,callback_id)
 	
 	if message_type == "block_actions":
 		#print("------------------block_actions-----------------")
@@ -188,6 +209,12 @@ def outbound():
 		# nos inventamos una key para que en el dict el valor sea unico
 		keypart1 = userID+'.'+userName
 		
+		if actionID == "action000" and blockID == "input000" :
+			# Typo de quedada
+			tipoSalida =  message_action["actions"][0]["selected_option"]["text"]["text"]
+			keypart2 = keypart1+'.tipoSalida'
+			print('Tipo de Salida:' , tipoSalida)
+			SALIDABICI[keypart2] = tipoSalida  
 		if actionID == "action002" and blockID == "input002" :
 			# Nivel de la salida
 			nivelSalida =  message_action["actions"][0]["selected_option"]["text"]["text"]
@@ -200,7 +227,7 @@ def outbound():
 			keypart2 = keypart1+'.duracionSalida'
 			print('Duración Salida:' , duracionSalida)
 			SALIDABICI[keypart2] = duracionSalida  
-		if blockID == "input004" :
+		if actionID == "action004" and blockID == "input004" :
 			# Fecha de la salida
 			fechaSalida =  message_action["actions"][0]["selected_date"]
 			keypart2 = keypart1+'.fechaSalida'
@@ -271,42 +298,57 @@ def inbound():
 
 	#print("-----------------------------------------------------------------")
 	#print(trigger_id, callback_id, text, channel_id, user_id,user_name)
-
-	if text == "help":
+	podemosAyudar = 0
+	if text == "help" or text == "ayuda":
+		podemosAyudar = 1
 		# starting a new thread for doing the actual processing
 		x = threading.Thread(target=help,args=(channel_id, user_id, client,callback_id))
 		x.start()		
 		return txtWait
 
-	if "quien es juanjo" in text :
+	if "quien es juanjo" in text or "quien juanjo" in text :
+		podemosAyudar = 1
 		# starting a new thread for doing the actual processing
 		x = threading.Thread(target=quienesjuano,args=(channel_id, user_id, client,callback_id))
 		x.start()		
 		return txtWait
 
-	if "foto aleatoria" in text :
+	if "foto" in text or "fotos" in text or "pics" in text :
+		podemosAyudar = 1
 		# starting a new thread for doing the actual processing
 		x = threading.Thread(target=randomPic,args=(channel_id, user_id, client,callback_id))
 		x.start()		
 		return txtWait
 
-	if "horario gym" in text or "horarios gym" in text :
+	if "horario" in text or "horarios gym" in text :
+		podemosAyudar = 1
 		# starting a new thread for doing the actual processing
 		x = threading.Thread(target=horariosFitness,args=(channel_id, user_id, client,callback_id))
 		x.start()		
 		return txtWait
 
-	if "tri noticias" in text :
+	if "noticia" in text or "news" in text:
+		podemosAyudar = 1
 		# starting a new thread for doing the actual processing
 		x = threading.Thread(target=triNews,args=(ssl_context,channel_id,user_id,client,callback_id))
 		x.start()		
 		return txtWait
 
-	if "salida bici" in text :
+	if "quedar" in text or "quedada" in text or "salida" in text :
+		podemosAyudar = 1
 		# starting a new thread for doing the actual processing
 		x = threading.Thread(target=salidaBici,args=(trigger_id,callback_id,client))
 		x.start()		
 		return txtWait
+	# --
+	# si no hay nada para lo introducido
+	# --
+	if podemosAyudar == 0 :
+		# starting a new thread for doing the actual processing
+		x = threading.Thread(target=noPodemosAyudar,args=(channel_id, user_id, client,callback_id))
+		x.start()		
+		return txtWait
+
 
 def respondProponerSalidaBici(channel_id,user,web_client,callback_id,message_ts,userName, vaOnoVa):
 	print("El usuario: ", userName, "dice que: ", vaOnoVa)
@@ -329,12 +371,10 @@ def respondProponerSalidaBici(channel_id,user,web_client,callback_id,message_ts,
 			channel=channel_id,
 			thread_ts=message_ts,
 			#text=f":heavy_check_mark: <@{user}>"
-			text=f"Yo <@{userName}>! soy duda... :man-shrugging:"
+			text=f"Yo <@{userName}>! soy duda...  ¯\_(ツ)_/¯ "
 		)
 
-
-
-def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, duracion_salida, texto_ruta, fecha_salida, hora_salida):
+def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, duracion_salida, texto_ruta, fecha_salida, hora_salida, tipoSalida):
     web_client.chat_postMessage(
       channel=channel_id,
       # thread_ts=thread_ts,
@@ -344,7 +384,7 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
 			},
 			{
 				"type": "section",
-				"text": {"type": "mrkdwn","text":":man-biking: *SALIDA EN BICI PROPUESTA POR:* " + user  + ':man-biking:'}
+				"text": {"type": "mrkdwn","text":f":mega: *PROPUESTA PARA QUEDAR :mega:* \n >por: <@{user}>"  }
 			},
 			{
 				"type": "context",
@@ -358,9 +398,10 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
 			{
 				"type": "section",
 				"fields": [
+					{"type": "mrkdwn",	"text": "*Tipo de quedada:*\n" + tipoSalida},
 					{"type": "mrkdwn",	"text": "*Fecha:*\n" + fecha_salida},
 					{"type": "mrkdwn",	"text": "*Hora:*\n" + hora_salida},
-					{"type": "mrkdwn",	"text": "*Nivel:*\n" + salida_nivel	},
+					{"type": "mrkdwn",	"text": "*Nivel recomendado:*\n" + salida_nivel	},
 					{"type": "mrkdwn",	"text": "*Duración:*\n" + duracion_salida}
 				]
 			},
@@ -401,30 +442,49 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
     )
 
 def salidaBici(trigger_id,callback_id,client):
+	yesterday = date.today() - timedelta(days=1)
+	yesterdayIs = yesterday.strftime('%Y-%m-%d')
+
 	open_dialog = client.views_open(
 				trigger_id = trigger_id,
 				view={
 					"type": "modal",
 					"callback_id": callback_id,
-					"title": {"type": "plain_text",	"text": "Salida en bici"},
+					"title": {"type": "plain_text",	"text": "QUEDAMOS...?"},
 					"submit": {"type": "plain_text","text": "Submit"},
 					"close": {"type": "plain_text",	"text": "Cancel"},					
 					"blocks": [
+						{"type": "section", "text": {"type": "mrkdwn","text": "*> :warning: todos los campos son obligatorios*"}},						
+						{
+							"type": "section",
+							"block_id": "input000",
+							"text": {"type": "mrkdwn","text": "Propongo...."},
+							"accessory": {
+								"action_id": "action000","type": "static_select",
+								"placeholder": {"type": "plain_text","text": "Seleccione"},
+									"options": [
+										{"text": {"type": "plain_text","text": "ruta en bici de carretera"},"value": "value-0"},
+										{"text": {"type": "plain_text","text": "ruta en bici de montaña"},"value": "value-1"},
+										{"text": {"type": "plain_text","text": "carrera a pie"},"value": "value-2"},
+										{"text": {"type": "plain_text","text": "tomar algo"},"value": "value-3"}
+									]
+							}
+						},						
 						{
 							"type": "input",
 							"block_id": "input001",
-							"label": {"type": "plain_text","text": "*** Todos los campos son obligatorios ***\n\nDescripción, punto de encuentro, etc"},
+							"label": {"type": "plain_text","text": "Descripción, punto de encuentro, etc"},
 							"element": {
 								"type": "plain_text_input",
 								"action_id": "plain_input",
 								"multiline": True,
-								"placeholder": {"type": "plain_text","text": "Describa la ruta en terminos generales"}
+								"placeholder": {"type": "plain_text","text": "Describe un poco la propuesta..."}
 							}
 						},
 						{
 							"type": "section",
 							"block_id": "input002",
-							"text": {"type": "mrkdwn","text": "Nivel permitido ?"},
+							"text": {"type": "mrkdwn","text": "Nivel recomendado...?"},
 							"accessory": {
 								"action_id": "action002","type": "static_select",
 								"placeholder": {"type": "plain_text","text": "Seleccione"},
@@ -433,14 +493,14 @@ def salidaBici(trigger_id,callback_id,client):
 										{"text": {"type": "plain_text","text": "medio"},"value": "value-1"},
 										{"text": {"type": "plain_text","text": "alto"},"value": "value-2"},
 										{"text": {"type": "plain_text","text": "muy alto"},"value": "value-3"},
-										{"text": {"type": "plain_text","text": "Chema Camacho!!"},"value": "value-4"}
+										{"text": {"type": "plain_text","text": "a machete"},"value": "value-4"}
 									]
 							}
 						},						
 						{
 							"type": "section",
 							"block_id": "input003",
-							"text": {"type": "mrkdwn","text": "Tiempo estimado de la ruta ?"	},
+							"text": {"type": "mrkdwn","text": "Tiempo estimado...?"	},
 							"accessory": {
 								"action_id": "action003","type": "static_select",
 								"placeholder": {"type": "plain_text","text": "Seleccione"},
@@ -458,17 +518,21 @@ def salidaBici(trigger_id,callback_id,client):
 						{
 							"type": "section",
 							"block_id": "input004",
-							"text": {"type": "mrkdwn","text": "Fecha ?"},
+							"text": {"type": "mrkdwn","text": "Fecha...?"},
 							"accessory": {
 											"type": "datepicker",
-											"initial_date": datetime.today().strftime('%Y-%m-%d'),
-											"placeholder": {"type": "plain_text","text": "Cuando salimos ?"	}
+											"action_id": "action004",
+											"placeholder": {
+												"type": "plain_text",
+												"text": "Seleccione"
+											},
+											"initial_date": str(yesterdayIs)
 							}
 						},						
 						{
 							"type": "section",
 							"block_id": "input005",
-							"text": {"type": "mrkdwn","text": "Hora ?"	},
+							"text": {"type": "mrkdwn","text": "Hora...?"	},
 							"accessory": {
 								"action_id": "action005","type": "static_select",
 								"placeholder": {"type": "plain_text","text": "Seleccione"},
@@ -567,14 +631,23 @@ def salidaBici(trigger_id,callback_id,client):
 	res = requests.post(callback_id, json=message)
 	print('respuesta:',res)
 
-def help(channel_id,user,web_client,callback_id):
-    web_client.chat_postMessage(channel=channel_id,text=f"Hola <@{user}>! , veo que necesitas ayuda. Este es un listado de las cosas que puedes hacer llamandome:")
+def noPodemosAyudar(channel_id,user,web_client,callback_id):
     web_client.chat_postMessage(channel=channel_id, blocks = [
-      {"type": "section", "text": {"type": "mrkdwn","text": "*[/fstbot* tri noticias] mostrar noticias del mundo del triatlón"}},
+      {"type": "section", "text": {"type": "mrkdwn","text":f"Hola <@{user}>!  ¯\_(ツ)_/¯  lo siento , todavía no puedo ayudarte con eso."}}
+      ])
+    # response to Slack after processing is finished
+    message = {"text": txtBye}
+    res = requests.post(callback_id, json=message)
+    print('respuesta:',res)
+
+def help(channel_id,user,web_client,callback_id):
+    web_client.chat_postMessage(channel=channel_id,text=f"Hola <@{user}>! , veo que necesitas ayuda. Este es un listado de las cosas que puedo hacer por ti:")
+    web_client.chat_postMessage(channel=channel_id, blocks = [
+      {"type": "section", "text": {"type": "mrkdwn","text": "*[/fstbot* noticias] mostrar noticias del mundo del triatlón"}},
       {"type": "section", "text": {"type": "mrkdwn","text": "*[/fstbot* quien es juanjo ?] saber mas del personaje"}},
-      {"type": "section", "text": {"type": "mrkdwn","text": "[*/fstbot* horario gym] conocer horarios actualizados del gimnasio"}},
-	  {"type": "section", "text": {"type": "mrkdwn","text": "[*/fstbot* salida bici] proponer salidas de bici"}},
-	  {"type": "section", "text": {"type": "mrkdwn","text": "[*/fstbot* foto aleatoria] mostrar foto aleatoria del club y su gente"}}
+      {"type": "section", "text": {"type": "mrkdwn","text": "[*/fstbot* horario] conocer horarios actualizados del gimnasio"}},
+	  {"type": "section", "text": {"type": "mrkdwn","text": "[*/fstbot* quedar] proponer quedadas"}},
+	  {"type": "section", "text": {"type": "mrkdwn","text": "[*/fstbot* foto ] mostrar foto aleatoria del club"}}
       ])
     # response to Slack after processing is finished
     message = {"text": txtBye}
@@ -591,7 +664,7 @@ def randomPic(channel_id,user,web_client,callback_id):
       blocks = [
             {
                 "type": "section",
-                "text": {"type": "mrkdwn","text":f"Hola <@{user}>! esta es la foto que hemos escogido para ti !!"}
+                "text": {"type": "mrkdwn","text":f"Hola <@{user}>! esta es la foto aleatoria que te ha tocado... !!"}
             },
 			{
 			"type": "image",
@@ -616,7 +689,7 @@ def quienesjuano(channel_id,user,web_client,callback_id):
       blocks = [
             {
                 "type": "section",
-                "text": {"type": "mrkdwn","text": "de Colombia para el mundo papa...*juepuuuuu*"}
+                "text": {"type": "mrkdwn","text":f"Hola <@{user}>! \n..... *Este es nuestro Juanjo* .... de Colombia para el mundo papa...*juepuuuuu*"}
             },
 			{
 			"type": "image",
@@ -634,7 +707,6 @@ def quienesjuano(channel_id,user,web_client,callback_id):
     res = requests.post(callback_id, json=message)
     print('respuesta:',res)
 
-
 def horariosFitness(channel_id,user,web_client,callback_id):
     web_client.chat_postMessage(
       channel=channel_id,
@@ -642,7 +714,7 @@ def horariosFitness(channel_id,user,web_client,callback_id):
       blocks = [
             {
                 "type": "section",
-                "text": {"type": "mrkdwn","text": "<http://fitnessports.eu/wp-content/uploads/pdf/Horarios%20Fitness%20Sports%20actualizado.pdf|Este link te llevará a los horarios del gym ;)>"}
+                "text": {"type": "mrkdwn","text":f"Hola <@{user}>! \n <http://fitnessports.eu/wp-content/uploads/pdf/Horarios%20Fitness%20Sports%20actualizado.pdf|Este link te llevará a los horarios del gym ;)>"}
             }
       ]    
     )
@@ -651,8 +723,8 @@ def horariosFitness(channel_id,user,web_client,callback_id):
     res = requests.post(callback_id, json=message)
     print('respuesta:',res)
 
-
 def triNews(ssl_context,channel_id,user,web_client,callback_id):
+    web_client.chat_postMessage(channel=channel_id,text=f"Hola <@{user}>! , a continuación las noticias mas recientes del mundo del triatlon. \n ...luego nos cuentas!! \n\n")
     # https://www.triathlon.org/feeds/news
     url = 'http://feeds.feedburner.com/TriatlonNoticias?format=xml'
     ssl_lib._create_default_https_context=ssl_lib._create_unverified_context
@@ -667,7 +739,7 @@ def triNews(ssl_context,channel_id,user,web_client,callback_id):
           blocks = [
                 {
                     "type": "section",
-                    "text": {"type": "mrkdwn", "text": title}
+                    "text": {"type": "mrkdwn", "text": "*"+title+"*"}
                 },
                 {
                     "type": "section",
