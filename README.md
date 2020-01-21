@@ -47,7 +47,7 @@ Ngrok en su version free soporta 1 proceso en cada region, hay 4 regiones en tot
 ### Current status (mipiri - dev)
 
 - Pendiente:
-    - Hacer el formulario más generico de tal forma que sirva para cualquier actividad.
+   
 
 ### La ejecución en local
 
