@@ -47,7 +47,8 @@ Ngrok en su version free soporta 1 proceso en cada region, hay 4 regiones en tot
 ### Current status (mipiri - dev)
 
 - Pendiente:
-   
+   - arreglar el tema de las 5 horas
+   - lo mismo hay que subir el voy a no voy sobre la foto.
 
 ### La ejecución en local
 
