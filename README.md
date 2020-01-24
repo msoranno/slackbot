@@ -4,7 +4,7 @@
 
 - install pyenv
 
-´´´´
+```
  sudo apt-get install -y make build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev \
 libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
@@ -15,9 +15,11 @@ vi  ~/.bashrc (add this to the end)
 export PATH="/home/pi/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-´´´´
+
+```
 
 - pyenv setup
+
 ````
 pyenv install 3.7.4
 pyenv virtualenv 3.7.4 slackcmd
@@ -49,11 +51,12 @@ Ngrok en su version free soporta 1 proceso en cada region, hay 4 regiones en tot
 - Pendiente:
    - arreglar el tema de las 5 horas
    - lo mismo hay que subir el voy a no voy sobre la foto.
+   - tratar de meter la el día que es en la fecha. ej: domingo 26-01-20
 
 ### La ejecución en local
 
 ````
-python slackcmd.py
+python ./slackcmd/slackcmd.py
 ````
 
 ## Prod
@@ -88,11 +91,7 @@ export SLACK_GENERAL_CHANNEL_NAME=general
 2. Run the program
 
 ``` 
-python fstbot.py
+python ./slackcmd/slackcmd.py
 ```
 
-3. Run as a service (optional)
 
-```
-sudo cp fstbot.service /etc/systemd/system/
-```

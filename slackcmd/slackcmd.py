@@ -37,60 +37,71 @@ txtBye = "petición completada"
 user_id = ""
 callback_id = ""
 FOTOSDRIVE = {}
-FOTOSDRIVE['0'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
-FOTOSDRIVE['1'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
-FOTOSDRIVE['2'] = "1KIkzRCVF4yGaenTvb4e6SkIjSXcigKr1"
-FOTOSDRIVE['3'] = "1K_7jzDeeC58s0hlpUOTCtSnfUU-Q727j"
-FOTOSDRIVE['4'] = "1K_xTQrdLevfEMYUfa3oJAYEVfQ7Ih15z"
-FOTOSDRIVE['5'] = "1LWkD-ELw60gQyR4IDEdQzWOtg_A3IJgb"
-FOTOSDRIVE['6'] = "1MIm8RuxjlG1vc2zkRwkALFeTzGedUFXP"
-FOTOSDRIVE['7'] = "1Lo9T_nOXCglDVfGZaxrx7iCqTvuF_alP"
-FOTOSDRIVE['8'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
-FOTOSDRIVE['9'] = "1L0GFard7_toEDFsk8sF5PguVahzA5eZ7"
-FOTOSDRIVE['10'] = "1ST_NMzdzMuOmihzkqz5dYmgsZWK9a-c8"
-FOTOSDRIVE['11'] = "1LM_jMxNkI5a3kr2CFMfgmmUH23w3xzHf"
-FOTOSDRIVE['12'] = "1LKqMNsRMjhlqPQJFgGs0Zwsectdf-2yp"
-FOTOSDRIVE['13'] = "1KoHGVZ_O0cyLfzPeAg-4JNZI1Lqf9K9E"
-FOTOSDRIVE['14'] = "1SP-WH7J92JPbWYaRCTEGQJen9NGBPUGN"
-FOTOSDRIVE['15'] = "1S51LEfVffX5i8soCwpoc9s1UXALxrSOt"
-FOTOSDRIVE['16'] = "1QOxSqyyxs79P0JhZcLAp88wqAZo7R9nH"
-FOTOSDRIVE['17'] = "1T2LqeTMIIQOm4XK5Rr1aikTKoZrNnX3Q"
-FOTOSDRIVE['18'] = "1SzwCNJGYQgVZspru2RFnKLLHeU3DBrmr"
-FOTOSDRIVE['19'] = "1SiPnxgUE3Kw6yhydm1W2R_WEZfefWIxz"
-FOTOSDRIVE['20'] = "1SOva3qHNpTdH5U9qq56KawA-ujcC6J52"
-FOTOSDRIVE['21'] = "1RpOGAHGhWf8ryyl8zk1XQLzLTHEZnLoT"
-FOTOSDRIVE['22'] = "1RZWj3MXvYVUk_WgrKNEQjMOj_S1ph4KP"
-FOTOSDRIVE['23'] = "1Re2pHa15CGfGE2AcOh77OD1poLcAhqRG"
-FOTOSDRIVE['24'] = "1RYB-6g_Nj2AoUY9YA6bxYcZIw9L-CVSt"
-FOTOSDRIVE['25'] = "1RQ180FsAZNJkgM2FUO0vSQvX7IhVzxO0"
-FOTOSDRIVE['26'] = "1RCbSU_SUxxvZxVbckQfdHmu3ovyiLLos"
-FOTOSDRIVE['27'] = "1RKivuxjFzVBfaBSjG8G3y31oBo8XvJ-r"
-FOTOSDRIVE['28'] = "1R4C4mUNiqS8A1oJfznIlGOlyEYU0EhlU"
-FOTOSDRIVE['29'] = "1R0Cyf8MIVYJKgsL9g2pxtsMBNFsqDueK"
-FOTOSDRIVE['30'] = "1QolF12rPTIv4dqC2ta2MCSvdOvsPymqd"
-FOTOSDRIVE['31'] = "1QhrRx_cwKYyxe2zAlKtE2TTAxmsvFcep"
-FOTOSDRIVE['32'] = "1QWK5VT1QKg-tpU8q_ZUv5p-VErgqQvyE"
-FOTOSDRIVE['33'] = "1QMtZP1A6W3sK54A7T4pQ8XOoKbzRUYPs"
-FOTOSDRIVE['34'] = "1Q0IJr_Jj5JlHNBwZS4NDDfJSM9479SR4"
-FOTOSDRIVE['35'] = "1P1TKRrJRMscPITNIeVQv8RCt0hdDZu3y"
-FOTOSDRIVE['36'] = "1OcJZh-mP3zVr4vBhsoF5pt4kEApRGWPZ"
-FOTOSDRIVE['37'] = "1Oz7z01l33T9mjlAcXGLIzFN6hCyVDVcF"
-FOTOSDRIVE['38'] = "1OZbYyDAg5wNtbtoAD8P2mQ7ZvoTmMOCW"
-FOTOSDRIVE['39'] = "1ODUT45ypsEI-XpQNtjht4rADB49i2bEq"
-FOTOSDRIVE['40'] = "1NSblbIa8Lw9K-_XxFwKfe8jZ9sLScR4t"
-FOTOSDRIVE['41'] = "1NRmZ8Gx6__CWP-9iojebBY1Q6lwBvXlY"
-FOTOSDRIVE['42'] = "1ONyqsPbAr7p1ZqvO1o3JETnUA8JgjQGa"
-FOTOSDRIVE['43'] = "1NbaBp0Uux5rsbXnuiFQdzEuSEiVwNVRL"
-FOTOSDRIVE['44'] = "1N1NjDZTWlh8Jy-B6wxExj05q6gA3Q5rO"
-FOTOSDRIVE['45'] = "1MscI1TwL0OPJkvL8vs8gVRQYm80VwNkP"
-FOTOSDRIVE['46'] = "1MpLIgyu6P9-PAqrC8eyoUKyR5LpSf0gO"
-FOTOSDRIVE['47'] = "1MhmREfi1zPF7DvZK_nxCSz2IQyOE9JL4"
-FOTOSDRIVE['48'] = "1LGLIvg3L2WVp4r270zoX087WRmcPBsyG"
-FOTOSDRIVE['49'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
-FOTOSDRIVE['50'] = "1KtfBy3WfFYwzaopoELTX4b2PGQz_vmCm"
+# FOTOSDRIVE['0'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
+# FOTOSDRIVE['1'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
+# FOTOSDRIVE['2'] = "1KIkzRCVF4yGaenTvb4e6SkIjSXcigKr1"
+# FOTOSDRIVE['3'] = "1K_7jzDeeC58s0hlpUOTCtSnfUU-Q727j"
+# FOTOSDRIVE['4'] = "1K_xTQrdLevfEMYUfa3oJAYEVfQ7Ih15z"
+# FOTOSDRIVE['5'] = "1LWkD-ELw60gQyR4IDEdQzWOtg_A3IJgb"
+# FOTOSDRIVE['6'] = "1MIm8RuxjlG1vc2zkRwkALFeTzGedUFXP"
+# FOTOSDRIVE['7'] = "1Lo9T_nOXCglDVfGZaxrx7iCqTvuF_alP"
+# FOTOSDRIVE['8'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
+# FOTOSDRIVE['9'] = "1L0GFard7_toEDFsk8sF5PguVahzA5eZ7"
+# FOTOSDRIVE['10'] = "1ST_NMzdzMuOmihzkqz5dYmgsZWK9a-c8"
+# FOTOSDRIVE['11'] = "1LM_jMxNkI5a3kr2CFMfgmmUH23w3xzHf"
+# FOTOSDRIVE['12'] = "1LKqMNsRMjhlqPQJFgGs0Zwsectdf-2yp"
+# FOTOSDRIVE['13'] = "1KoHGVZ_O0cyLfzPeAg-4JNZI1Lqf9K9E"
+# FOTOSDRIVE['14'] = "1SP-WH7J92JPbWYaRCTEGQJen9NGBPUGN"
+# FOTOSDRIVE['15'] = "1S51LEfVffX5i8soCwpoc9s1UXALxrSOt"
+# FOTOSDRIVE['16'] = "1QOxSqyyxs79P0JhZcLAp88wqAZo7R9nH"
+# FOTOSDRIVE['17'] = "1T2LqeTMIIQOm4XK5Rr1aikTKoZrNnX3Q"
+# FOTOSDRIVE['18'] = "1SzwCNJGYQgVZspru2RFnKLLHeU3DBrmr"
+# FOTOSDRIVE['19'] = "1SiPnxgUE3Kw6yhydm1W2R_WEZfefWIxz"
+# FOTOSDRIVE['20'] = "1SOva3qHNpTdH5U9qq56KawA-ujcC6J52"
+# FOTOSDRIVE['21'] = "1RpOGAHGhWf8ryyl8zk1XQLzLTHEZnLoT"
+# FOTOSDRIVE['22'] = "1RZWj3MXvYVUk_WgrKNEQjMOj_S1ph4KP"
+# FOTOSDRIVE['23'] = "1Re2pHa15CGfGE2AcOh77OD1poLcAhqRG"
+# FOTOSDRIVE['24'] = "1RYB-6g_Nj2AoUY9YA6bxYcZIw9L-CVSt"
+# FOTOSDRIVE['25'] = "1RQ180FsAZNJkgM2FUO0vSQvX7IhVzxO0"
+# FOTOSDRIVE['26'] = "1RCbSU_SUxxvZxVbckQfdHmu3ovyiLLos"
+# FOTOSDRIVE['27'] = "1RKivuxjFzVBfaBSjG8G3y31oBo8XvJ-r"
+# FOTOSDRIVE['28'] = "1R4C4mUNiqS8A1oJfznIlGOlyEYU0EhlU"
+# FOTOSDRIVE['29'] = "1R0Cyf8MIVYJKgsL9g2pxtsMBNFsqDueK"
+# FOTOSDRIVE['30'] = "1QolF12rPTIv4dqC2ta2MCSvdOvsPymqd"
+# FOTOSDRIVE['31'] = "1QhrRx_cwKYyxe2zAlKtE2TTAxmsvFcep"
+# FOTOSDRIVE['32'] = "1QWK5VT1QKg-tpU8q_ZUv5p-VErgqQvyE"
+# FOTOSDRIVE['33'] = "1QMtZP1A6W3sK54A7T4pQ8XOoKbzRUYPs"
+# FOTOSDRIVE['34'] = "1Q0IJr_Jj5JlHNBwZS4NDDfJSM9479SR4"
+# FOTOSDRIVE['35'] = "1P1TKRrJRMscPITNIeVQv8RCt0hdDZu3y"
+# FOTOSDRIVE['36'] = "1OcJZh-mP3zVr4vBhsoF5pt4kEApRGWPZ"
+# FOTOSDRIVE['37'] = "1Oz7z01l33T9mjlAcXGLIzFN6hCyVDVcF"
+# FOTOSDRIVE['38'] = "1OZbYyDAg5wNtbtoAD8P2mQ7ZvoTmMOCW"
+# FOTOSDRIVE['39'] = "1ODUT45ypsEI-XpQNtjht4rADB49i2bEq"
+# FOTOSDRIVE['40'] = "1NSblbIa8Lw9K-_XxFwKfe8jZ9sLScR4t"
+# FOTOSDRIVE['41'] = "1NRmZ8Gx6__CWP-9iojebBY1Q6lwBvXlY"
+# FOTOSDRIVE['42'] = "1ONyqsPbAr7p1ZqvO1o3JETnUA8JgjQGa"
+# FOTOSDRIVE['43'] = "1NbaBp0Uux5rsbXnuiFQdzEuSEiVwNVRL"
+# FOTOSDRIVE['44'] = "1N1NjDZTWlh8Jy-B6wxExj05q6gA3Q5rO"
+# FOTOSDRIVE['45'] = "1MscI1TwL0OPJkvL8vs8gVRQYm80VwNkP"
+# FOTOSDRIVE['46'] = "1MpLIgyu6P9-PAqrC8eyoUKyR5LpSf0gO"
+# FOTOSDRIVE['47'] = "1MhmREfi1zPF7DvZK_nxCSz2IQyOE9JL4"
+# FOTOSDRIVE['48'] = "1LGLIvg3L2WVp4r270zoX087WRmcPBsyG"
+# FOTOSDRIVE['49'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
+# FOTOSDRIVE['50'] = "1KtfBy3WfFYwzaopoELTX4b2PGQz_vmCm"
 
 
-
+def loadPics():
+	# Using readlines() 
+	file1 = open('./slackcmd/pics.txt', 'r') 
+	Lines = file1.readlines() 
+	
+	count = 0
+	# Strips the newline character 
+	count = 0
+	for line in Lines: 
+		#print(line.strip(), count) 
+		FOTOSDRIVE[count] = line.strip()
+		count += 1
 
 @app.route('/slackresp', methods=['POST'])
 def outbound():
@@ -295,7 +306,8 @@ def inbound():
 	channel_id = slack_request["channel_id"]
 	user_id = slack_request["user_id"]
 	user_name =slack_request["user_name"]
-
+	
+	
 	#print("-----------------------------------------------------------------")
 	#print(trigger_id, callback_id, text, channel_id, user_id,user_name)
 	podemosAyudar = 0
@@ -411,7 +423,7 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
 					"type": "plain_text",
 					"text": "foto aleatoria...."
 				},
-				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE[str(randrange(len(FOTOSDRIVE)))],
+				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE[str(randrange(0,len(FOTOSDRIVE),5))],
 				"alt_text": "Example Image"
 			},
 			{
@@ -759,4 +771,5 @@ def test():
 
 
 if __name__ == "__main__":
+	loadPics()
 	app.run(debug=True)
