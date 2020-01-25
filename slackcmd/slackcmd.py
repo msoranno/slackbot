@@ -37,60 +37,71 @@ txtBye = "petición completada"
 user_id = ""
 callback_id = ""
 FOTOSDRIVE = {}
-FOTOSDRIVE['0'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
-FOTOSDRIVE['1'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
-FOTOSDRIVE['2'] = "1KIkzRCVF4yGaenTvb4e6SkIjSXcigKr1"
-FOTOSDRIVE['3'] = "1K_7jzDeeC58s0hlpUOTCtSnfUU-Q727j"
-FOTOSDRIVE['4'] = "1K_xTQrdLevfEMYUfa3oJAYEVfQ7Ih15z"
-FOTOSDRIVE['5'] = "1LWkD-ELw60gQyR4IDEdQzWOtg_A3IJgb"
-FOTOSDRIVE['6'] = "1MIm8RuxjlG1vc2zkRwkALFeTzGedUFXP"
-FOTOSDRIVE['7'] = "1Lo9T_nOXCglDVfGZaxrx7iCqTvuF_alP"
-FOTOSDRIVE['8'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
-FOTOSDRIVE['9'] = "1L0GFard7_toEDFsk8sF5PguVahzA5eZ7"
-FOTOSDRIVE['10'] = "1ST_NMzdzMuOmihzkqz5dYmgsZWK9a-c8"
-FOTOSDRIVE['11'] = "1LM_jMxNkI5a3kr2CFMfgmmUH23w3xzHf"
-FOTOSDRIVE['12'] = "1LKqMNsRMjhlqPQJFgGs0Zwsectdf-2yp"
-FOTOSDRIVE['13'] = "1KoHGVZ_O0cyLfzPeAg-4JNZI1Lqf9K9E"
-FOTOSDRIVE['14'] = "1SP-WH7J92JPbWYaRCTEGQJen9NGBPUGN"
-FOTOSDRIVE['15'] = "1S51LEfVffX5i8soCwpoc9s1UXALxrSOt"
-FOTOSDRIVE['16'] = "1QOxSqyyxs79P0JhZcLAp88wqAZo7R9nH"
-FOTOSDRIVE['17'] = "1T2LqeTMIIQOm4XK5Rr1aikTKoZrNnX3Q"
-FOTOSDRIVE['18'] = "1SzwCNJGYQgVZspru2RFnKLLHeU3DBrmr"
-FOTOSDRIVE['19'] = "1SiPnxgUE3Kw6yhydm1W2R_WEZfefWIxz"
-FOTOSDRIVE['20'] = "1SOva3qHNpTdH5U9qq56KawA-ujcC6J52"
-FOTOSDRIVE['21'] = "1RpOGAHGhWf8ryyl8zk1XQLzLTHEZnLoT"
-FOTOSDRIVE['22'] = "1RZWj3MXvYVUk_WgrKNEQjMOj_S1ph4KP"
-FOTOSDRIVE['23'] = "1Re2pHa15CGfGE2AcOh77OD1poLcAhqRG"
-FOTOSDRIVE['24'] = "1RYB-6g_Nj2AoUY9YA6bxYcZIw9L-CVSt"
-FOTOSDRIVE['25'] = "1RQ180FsAZNJkgM2FUO0vSQvX7IhVzxO0"
-FOTOSDRIVE['26'] = "1RCbSU_SUxxvZxVbckQfdHmu3ovyiLLos"
-FOTOSDRIVE['27'] = "1RKivuxjFzVBfaBSjG8G3y31oBo8XvJ-r"
-FOTOSDRIVE['28'] = "1R4C4mUNiqS8A1oJfznIlGOlyEYU0EhlU"
-FOTOSDRIVE['29'] = "1R0Cyf8MIVYJKgsL9g2pxtsMBNFsqDueK"
-FOTOSDRIVE['30'] = "1QolF12rPTIv4dqC2ta2MCSvdOvsPymqd"
-FOTOSDRIVE['31'] = "1QhrRx_cwKYyxe2zAlKtE2TTAxmsvFcep"
-FOTOSDRIVE['32'] = "1QWK5VT1QKg-tpU8q_ZUv5p-VErgqQvyE"
-FOTOSDRIVE['33'] = "1QMtZP1A6W3sK54A7T4pQ8XOoKbzRUYPs"
-FOTOSDRIVE['34'] = "1Q0IJr_Jj5JlHNBwZS4NDDfJSM9479SR4"
-FOTOSDRIVE['35'] = "1P1TKRrJRMscPITNIeVQv8RCt0hdDZu3y"
-FOTOSDRIVE['36'] = "1OcJZh-mP3zVr4vBhsoF5pt4kEApRGWPZ"
-FOTOSDRIVE['37'] = "1Oz7z01l33T9mjlAcXGLIzFN6hCyVDVcF"
-FOTOSDRIVE['38'] = "1OZbYyDAg5wNtbtoAD8P2mQ7ZvoTmMOCW"
-FOTOSDRIVE['39'] = "1ODUT45ypsEI-XpQNtjht4rADB49i2bEq"
-FOTOSDRIVE['40'] = "1NSblbIa8Lw9K-_XxFwKfe8jZ9sLScR4t"
-FOTOSDRIVE['41'] = "1NRmZ8Gx6__CWP-9iojebBY1Q6lwBvXlY"
-FOTOSDRIVE['42'] = "1ONyqsPbAr7p1ZqvO1o3JETnUA8JgjQGa"
-FOTOSDRIVE['43'] = "1NbaBp0Uux5rsbXnuiFQdzEuSEiVwNVRL"
-FOTOSDRIVE['44'] = "1N1NjDZTWlh8Jy-B6wxExj05q6gA3Q5rO"
-FOTOSDRIVE['45'] = "1MscI1TwL0OPJkvL8vs8gVRQYm80VwNkP"
-FOTOSDRIVE['46'] = "1MpLIgyu6P9-PAqrC8eyoUKyR5LpSf0gO"
-FOTOSDRIVE['47'] = "1MhmREfi1zPF7DvZK_nxCSz2IQyOE9JL4"
-FOTOSDRIVE['48'] = "1LGLIvg3L2WVp4r270zoX087WRmcPBsyG"
-FOTOSDRIVE['49'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
-FOTOSDRIVE['50'] = "1KtfBy3WfFYwzaopoELTX4b2PGQz_vmCm"
+# FOTOSDRIVE['0'] = "1KLGikwvC1QKWlvvImkMOhi0P3BiBt80a"
+# FOTOSDRIVE['1'] = "1BS6VL5onsxbfHNQWMqEBsqKHuHTmiAAO"
+# FOTOSDRIVE['2'] = "1KIkzRCVF4yGaenTvb4e6SkIjSXcigKr1"
+# FOTOSDRIVE['3'] = "1K_7jzDeeC58s0hlpUOTCtSnfUU-Q727j"
+# FOTOSDRIVE['4'] = "1K_xTQrdLevfEMYUfa3oJAYEVfQ7Ih15z"
+# FOTOSDRIVE['5'] = "1LWkD-ELw60gQyR4IDEdQzWOtg_A3IJgb"
+# FOTOSDRIVE['6'] = "1MIm8RuxjlG1vc2zkRwkALFeTzGedUFXP"
+# FOTOSDRIVE['7'] = "1Lo9T_nOXCglDVfGZaxrx7iCqTvuF_alP"
+# FOTOSDRIVE['8'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
+# FOTOSDRIVE['9'] = "1L0GFard7_toEDFsk8sF5PguVahzA5eZ7"
+# FOTOSDRIVE['10'] = "1ST_NMzdzMuOmihzkqz5dYmgsZWK9a-c8"
+# FOTOSDRIVE['11'] = "1LM_jMxNkI5a3kr2CFMfgmmUH23w3xzHf"
+# FOTOSDRIVE['12'] = "1LKqMNsRMjhlqPQJFgGs0Zwsectdf-2yp"
+# FOTOSDRIVE['13'] = "1KoHGVZ_O0cyLfzPeAg-4JNZI1Lqf9K9E"
+# FOTOSDRIVE['14'] = "1SP-WH7J92JPbWYaRCTEGQJen9NGBPUGN"
+# FOTOSDRIVE['15'] = "1S51LEfVffX5i8soCwpoc9s1UXALxrSOt"
+# FOTOSDRIVE['16'] = "1QOxSqyyxs79P0JhZcLAp88wqAZo7R9nH"
+# FOTOSDRIVE['17'] = "1T2LqeTMIIQOm4XK5Rr1aikTKoZrNnX3Q"
+# FOTOSDRIVE['18'] = "1SzwCNJGYQgVZspru2RFnKLLHeU3DBrmr"
+# FOTOSDRIVE['19'] = "1SiPnxgUE3Kw6yhydm1W2R_WEZfefWIxz"
+# FOTOSDRIVE['20'] = "1SOva3qHNpTdH5U9qq56KawA-ujcC6J52"
+# FOTOSDRIVE['21'] = "1RpOGAHGhWf8ryyl8zk1XQLzLTHEZnLoT"
+# FOTOSDRIVE['22'] = "1RZWj3MXvYVUk_WgrKNEQjMOj_S1ph4KP"
+# FOTOSDRIVE['23'] = "1Re2pHa15CGfGE2AcOh77OD1poLcAhqRG"
+# FOTOSDRIVE['24'] = "1RYB-6g_Nj2AoUY9YA6bxYcZIw9L-CVSt"
+# FOTOSDRIVE['25'] = "1RQ180FsAZNJkgM2FUO0vSQvX7IhVzxO0"
+# FOTOSDRIVE['26'] = "1RCbSU_SUxxvZxVbckQfdHmu3ovyiLLos"
+# FOTOSDRIVE['27'] = "1RKivuxjFzVBfaBSjG8G3y31oBo8XvJ-r"
+# FOTOSDRIVE['28'] = "1R4C4mUNiqS8A1oJfznIlGOlyEYU0EhlU"
+# FOTOSDRIVE['29'] = "1R0Cyf8MIVYJKgsL9g2pxtsMBNFsqDueK"
+# FOTOSDRIVE['30'] = "1QolF12rPTIv4dqC2ta2MCSvdOvsPymqd"
+# FOTOSDRIVE['31'] = "1QhrRx_cwKYyxe2zAlKtE2TTAxmsvFcep"
+# FOTOSDRIVE['32'] = "1QWK5VT1QKg-tpU8q_ZUv5p-VErgqQvyE"
+# FOTOSDRIVE['33'] = "1QMtZP1A6W3sK54A7T4pQ8XOoKbzRUYPs"
+# FOTOSDRIVE['34'] = "1Q0IJr_Jj5JlHNBwZS4NDDfJSM9479SR4"
+# FOTOSDRIVE['35'] = "1P1TKRrJRMscPITNIeVQv8RCt0hdDZu3y"
+# FOTOSDRIVE['36'] = "1OcJZh-mP3zVr4vBhsoF5pt4kEApRGWPZ"
+# FOTOSDRIVE['37'] = "1Oz7z01l33T9mjlAcXGLIzFN6hCyVDVcF"
+# FOTOSDRIVE['38'] = "1OZbYyDAg5wNtbtoAD8P2mQ7ZvoTmMOCW"
+# FOTOSDRIVE['39'] = "1ODUT45ypsEI-XpQNtjht4rADB49i2bEq"
+# FOTOSDRIVE['40'] = "1NSblbIa8Lw9K-_XxFwKfe8jZ9sLScR4t"
+# FOTOSDRIVE['41'] = "1NRmZ8Gx6__CWP-9iojebBY1Q6lwBvXlY"
+# FOTOSDRIVE['42'] = "1ONyqsPbAr7p1ZqvO1o3JETnUA8JgjQGa"
+# FOTOSDRIVE['43'] = "1NbaBp0Uux5rsbXnuiFQdzEuSEiVwNVRL"
+# FOTOSDRIVE['44'] = "1N1NjDZTWlh8Jy-B6wxExj05q6gA3Q5rO"
+# FOTOSDRIVE['45'] = "1MscI1TwL0OPJkvL8vs8gVRQYm80VwNkP"
+# FOTOSDRIVE['46'] = "1MpLIgyu6P9-PAqrC8eyoUKyR5LpSf0gO"
+# FOTOSDRIVE['47'] = "1MhmREfi1zPF7DvZK_nxCSz2IQyOE9JL4"
+# FOTOSDRIVE['48'] = "1LGLIvg3L2WVp4r270zoX087WRmcPBsyG"
+# FOTOSDRIVE['49'] = "1KyUMBu-t_Q4JJifW13ku7bQ7vWDNWW8X"
+# FOTOSDRIVE['50'] = "1KtfBy3WfFYwzaopoELTX4b2PGQz_vmCm"
 
 
-
+def loadPics():
+	# Using readlines() 
+	file1 = open('./slackcmd/pics.txt', 'r') 
+	Lines = file1.readlines() 
+	
+	count = 0
+	# Strips the newline character 
+	count = 0
+	for line in Lines: 
+		#print(line.strip(), count) 
+		FOTOSDRIVE[count] = line.strip()
+		count += 1
 
 @app.route('/slackresp', methods=['POST'])
 def outbound():
@@ -295,7 +306,8 @@ def inbound():
 	channel_id = slack_request["channel_id"]
 	user_id = slack_request["user_id"]
 	user_name =slack_request["user_name"]
-
+	
+	
 	#print("-----------------------------------------------------------------")
 	#print(trigger_id, callback_id, text, channel_id, user_id,user_name)
 	podemosAyudar = 0
@@ -411,7 +423,7 @@ def proponerSalidaBici(channel_id,user,web_client,callback_id,salida_nivel, dura
 					"type": "plain_text",
 					"text": "foto aleatoria...."
 				},
-				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE[str(randrange(len(FOTOSDRIVE)))],
+				"image_url": "https://drive.google.com/uc?id="+ FOTOSDRIVE[str(randrange(0,len(FOTOSDRIVE),5))],
 				"alt_text": "Example Image"
 			},
 			{
@@ -537,88 +549,88 @@ def salidaBici(trigger_id,callback_id,client):
 								"action_id": "action005","type": "static_select",
 								"placeholder": {"type": "plain_text","text": "Seleccione"},
 									"options": [
-										{"text": {"type": "plain_text","text": "05:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "05:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "05:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "05:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "06:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "06:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "06:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "06:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "07:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "07:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "07:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "07:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "08:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "08:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "08:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "08:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "09:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "09:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "09:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "09:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "11:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "10:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "11:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "11:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "11:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "11:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "12:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "12:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "12:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "12:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "13:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "13:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "13:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "13:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "14:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "14:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "14:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "14:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "15:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "15:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "15:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "15:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "16:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "16:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "16:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "16:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "17:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "17:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "17:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "17:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "18:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "18:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "18:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "18:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "19:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "19:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "19:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "19:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "20:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "20:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "20:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "20:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "21:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "21:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "21:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "21:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "22:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "22:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "22:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "22:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "23:00 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "23:15 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "23:30 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "23:45 hrs"},"value": " "},
-										{"text": {"type": "plain_text","text": "24:00 hrs"},"value": " "}
+										{"text": {"type": "plain_text","text": "05:00 hrs"},"value": "value-0"},
+										{"text": {"type": "plain_text","text": "05:15 hrs"},"value": "value-1"},
+										{"text": {"type": "plain_text","text": "05:30 hrs"},"value": "value-2"},
+										{"text": {"type": "plain_text","text": "05:45 hrs"},"value": "value-3"},
+										{"text": {"type": "plain_text","text": "06:00 hrs"},"value": "value-4"},
+										{"text": {"type": "plain_text","text": "06:15 hrs"},"value": "value-5"},
+										{"text": {"type": "plain_text","text": "06:30 hrs"},"value": "value-6"},
+										{"text": {"type": "plain_text","text": "06:45 hrs"},"value": "value-7"},
+										{"text": {"type": "plain_text","text": "07:00 hrs"},"value": "value-8"},
+										{"text": {"type": "plain_text","text": "07:15 hrs"},"value": "value-9"},
+										{"text": {"type": "plain_text","text": "07:30 hrs"},"value": "value-10"},
+										{"text": {"type": "plain_text","text": "07:45 hrs"},"value": "value-11"},
+										{"text": {"type": "plain_text","text": "08:00 hrs"},"value": "value-12"},
+										{"text": {"type": "plain_text","text": "08:15 hrs"},"value": "value-13"},
+										{"text": {"type": "plain_text","text": "08:30 hrs"},"value": "value-14"},
+										{"text": {"type": "plain_text","text": "08:45 hrs"},"value": "value-15"},
+										{"text": {"type": "plain_text","text": "09:00 hrs"},"value": "value-16"},
+										{"text": {"type": "plain_text","text": "09:15 hrs"},"value": "value-17"},
+										{"text": {"type": "plain_text","text": "09:30 hrs"},"value": "value-18"},
+										{"text": {"type": "plain_text","text": "09:45 hrs"},"value": "value-19"},
+										{"text": {"type": "plain_text","text": "10:00 hrs"},"value": "value-20"},
+										{"text": {"type": "plain_text","text": "10:15 hrs"},"value": "value-21"},
+										{"text": {"type": "plain_text","text": "10:30 hrs"},"value": "value-22"},
+										{"text": {"type": "plain_text","text": "10:45 hrs"},"value": "value-23"},
+										{"text": {"type": "plain_text","text": "11:00 hrs"},"value": "value-24"},
+										{"text": {"type": "plain_text","text": "10:00 hrs"},"value": "value-25"},
+										{"text": {"type": "plain_text","text": "10:15 hrs"},"value": "value-26"},
+										{"text": {"type": "plain_text","text": "10:30 hrs"},"value": "value-27"},
+										{"text": {"type": "plain_text","text": "10:45 hrs"},"value": "value-28"},
+										{"text": {"type": "plain_text","text": "11:00 hrs"},"value": "value-29"},
+										{"text": {"type": "plain_text","text": "11:15 hrs"},"value": "value-30"},
+										{"text": {"type": "plain_text","text": "11:30 hrs"},"value": "value-31"},
+										{"text": {"type": "plain_text","text": "11:45 hrs"},"value": "value-32"},
+										{"text": {"type": "plain_text","text": "12:00 hrs"},"value": "value-33"},
+										{"text": {"type": "plain_text","text": "12:15 hrs"},"value": "value-34"},
+										{"text": {"type": "plain_text","text": "12:30 hrs"},"value": "value-35"},
+										{"text": {"type": "plain_text","text": "12:45 hrs"},"value": "value-36"},
+										{"text": {"type": "plain_text","text": "13:00 hrs"},"value": "value-37"},
+										{"text": {"type": "plain_text","text": "13:15 hrs"},"value": "value-38"},
+										{"text": {"type": "plain_text","text": "13:30 hrs"},"value": "value-39"},
+										{"text": {"type": "plain_text","text": "13:45 hrs"},"value": "value-40"},
+										{"text": {"type": "plain_text","text": "14:00 hrs"},"value": "value-41"},
+										{"text": {"type": "plain_text","text": "14:15 hrs"},"value": "value-42"},
+										{"text": {"type": "plain_text","text": "14:30 hrs"},"value": "value-43"},
+										{"text": {"type": "plain_text","text": "14:45 hrs"},"value": "value-44"},
+										{"text": {"type": "plain_text","text": "15:00 hrs"},"value": "value-45"},
+										{"text": {"type": "plain_text","text": "15:15 hrs"},"value": "value-46"},
+										{"text": {"type": "plain_text","text": "15:30 hrs"},"value": "value-47"},
+										{"text": {"type": "plain_text","text": "15:45 hrs"},"value": "value-48"},
+										{"text": {"type": "plain_text","text": "16:00 hrs"},"value": "value-49"},
+										{"text": {"type": "plain_text","text": "16:15 hrs"},"value": "value-50"},
+										{"text": {"type": "plain_text","text": "16:30 hrs"},"value": "value-51"},
+										{"text": {"type": "plain_text","text": "16:45 hrs"},"value": "value-52"},
+										{"text": {"type": "plain_text","text": "17:00 hrs"},"value": "value-53"},
+										{"text": {"type": "plain_text","text": "17:15 hrs"},"value": "value-54"},
+										{"text": {"type": "plain_text","text": "17:30 hrs"},"value": "value-55"},
+										{"text": {"type": "plain_text","text": "17:45 hrs"},"value": "value-56"},
+										{"text": {"type": "plain_text","text": "18:00 hrs"},"value": "value-57"},
+										{"text": {"type": "plain_text","text": "18:15 hrs"},"value": "value-58"},
+										{"text": {"type": "plain_text","text": "18:30 hrs"},"value": "value-59"},
+										{"text": {"type": "plain_text","text": "18:45 hrs"},"value": "value-60"},
+										{"text": {"type": "plain_text","text": "19:00 hrs"},"value": "value-61"},
+										{"text": {"type": "plain_text","text": "19:15 hrs"},"value": "value-62"},
+										{"text": {"type": "plain_text","text": "19:30 hrs"},"value": "value-63"},
+										{"text": {"type": "plain_text","text": "19:45 hrs"},"value": "value-64"},
+										{"text": {"type": "plain_text","text": "20:00 hrs"},"value": "value-65"},
+										{"text": {"type": "plain_text","text": "20:15 hrs"},"value": "value-66"},
+										{"text": {"type": "plain_text","text": "20:30 hrs"},"value": "value-67"},
+										{"text": {"type": "plain_text","text": "20:45 hrs"},"value": "value-68"},
+										{"text": {"type": "plain_text","text": "21:00 hrs"},"value": "value-69"},
+										{"text": {"type": "plain_text","text": "21:15 hrs"},"value": "value-70"},
+										{"text": {"type": "plain_text","text": "21:30 hrs"},"value": "value-71"},
+										{"text": {"type": "plain_text","text": "21:45 hrs"},"value": "value-72"},
+										{"text": {"type": "plain_text","text": "22:00 hrs"},"value": "value-73"},
+										{"text": {"type": "plain_text","text": "22:15 hrs"},"value": "value-74"},
+										{"text": {"type": "plain_text","text": "22:30 hrs"},"value": "value-75"},
+										{"text": {"type": "plain_text","text": "22:45 hrs"},"value": "value-76"},
+										{"text": {"type": "plain_text","text": "23:00 hrs"},"value": "value-77"},
+										{"text": {"type": "plain_text","text": "23:15 hrs"},"value": "value-78"},
+										{"text": {"type": "plain_text","text": "23:30 hrs"},"value": "value-79"},
+										{"text": {"type": "plain_text","text": "23:45 hrs"},"value": "value-80"},
+										{"text": {"type": "plain_text","text": "24:00 hrs"},"value": "value-81"}
 									]
 							}
 						}						
@@ -759,4 +771,5 @@ def test():
 
 
 if __name__ == "__main__":
+	loadPics()
 	app.run(debug=True)
