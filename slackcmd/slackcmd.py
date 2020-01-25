@@ -156,7 +156,7 @@ def outbound():
 			if tipoSalida == "carrera a pie" :
 				canal_slack_id = SLACK_RUN_CHANNEL_ID
 				canal_slack_name = SLACK_RUN_CHANNEL_NAME
-			if tipoSalida == "tomar algo" :
+			if tipoSalida == "evento social" :
 				canal_slack_id  = SLACK_GENERAL_CHANNEL_ID
 				canal_slack_name  = SLACK_GENERAL_CHANNEL_NAME
 			
