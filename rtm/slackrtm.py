@@ -115,6 +115,11 @@ def salidaBici(channel_id,user,web_client,thread_ts):
     #   blocks = 
     # )
 
+def mirror(channel_id,user,web_client,text):
+    web_client.chat_postMessage(channel=channel_id,text=f"Hola <@{user}>!")
+    web_client.chat_postMessage(channel=channel_id, blocks = [
+      {"type": "section", "text": {"type": "mrkdwn","text": "**Has escrito:** " + text}}
+      ])
 
 @RTMClient.run_on(event="message")
 def say_hello(**payload):
@@ -123,6 +128,14 @@ def say_hello(**payload):
     print(data)
     print('---------------------------------------------------------------------------------')
     thread_ts = str(data.get('ts'))
+
+    if 'bonibot' in str(data.get('text')).lower():
+      #mirror text
+      mirrorText = str(data.get('text'))
+      user = str(data.get('user'))
+      channel_id = str(data.get('channel'))
+      mirror(channel_id,user,web_client,mirrorText)
+          
     # if 'fstbot' in str(data.get('text')).lower():
     #     channel_id = str(data.get('channel'))
     #     thread_ts = str(data.get('ts'))
