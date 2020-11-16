@@ -1,6 +1,6 @@
 # slackbot
 
-## raspi setup
+## raspi setup.
 
 - install pyenv
 
