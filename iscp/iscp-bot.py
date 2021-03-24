@@ -104,7 +104,7 @@ def inbound():
 # FUNCTIONS
 #------------------------------------------------------------------------------------------------------------------------------------
 
-def ask_for_dg(trigger_id,callback_id,client):
+def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 	
 	open_dialog = client.views_open(
 				trigger_id = trigger_id,
@@ -129,7 +129,8 @@ def ask_for_dg(trigger_id,callback_id,client):
 										{"text": {"type": "plain_text","text": "imf01"},"value": "dg-4"}
 									]
 							}
-						}						
+						},
+						{"type": "section", "text": {"type": "mrkdwn","text": ":warning: token: "+str(vaultToken)}}						
 
 					]					
 				}
@@ -189,33 +190,12 @@ def test():
 #------
 #Main
 #------
-# algunos exports requeridos
-# testing channel CRB74AX8U (mipiri)
-# export SLACK_BIKE_CHANNEL_ID=CRB74AX8U
-# export SLACK_BIKE_CHANNEL_NAME=bot-testing
-# export SLACK_RUN_CHANNEL_ID=CRB74AX8U
-# export SLACK_RUN_CHANNEL_NAME=general
-# export SLACK_GENERAL_CHANNEL_ID=CRB74AX8U
-# export SLACK_GENERAL_CHANNEL_NAME=varios
-# fst
-# export SLACK_BIKE_CHANNEL_ID=CQ56F3UL9
-# export SLACK_BIKE_CHANNEL_NAME=salidas-bici
-# export SLACK_RUN_CHANNEL_ID=CQCKVFVA8
-# export SLACK_RUN_CHANNEL_NAME=tapias
-# export SLACK_GENERAL_CHANNEL_ID=CQXAF2KUJ
-# export SLACK_GENERAL_CHANNEL_NAME=eventossociales
 
 # Globals
 ssl_context = ssl_lib.create_default_context(cafile=certifi.where())
 client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'], ssl=ssl_context)
 txtWait = "please wait...."
 
-SLACK_BIKE_CHANNEL_ID = os.environ['SLACK_BIKE_CHANNEL_ID']
-SLACK_BIKE_CHANNEL_NAME = os.environ['SLACK_BIKE_CHANNEL_NAME']
-SLACK_RUN_CHANNEL_ID = os.environ['SLACK_RUN_CHANNEL_ID']
-SLACK_RUN_CHANNEL_NAME = os.environ['SLACK_RUN_CHANNEL_NAME']
-SLACK_GENERAL_CHANNEL_ID = os.environ['SLACK_GENERAL_CHANNEL_ID']
-SLACK_GENERAL_CHANNEL_NAME = os.environ['SLACK_GENERAL_CHANNEL_NAME']
 
 txtBye = "request completed"
 user_id = ""
