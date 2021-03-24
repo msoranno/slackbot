@@ -1,4 +1,4 @@
-# Mipiri workspace
+# Mipiri workspace test
 
 export SLACK_API_TOKEN="xoxb-861708542357-864466758288-N4sgxNDpvnsjx1G7t5lVVVI9"
 export SLACK_BIKE_CHANNEL_ID=
