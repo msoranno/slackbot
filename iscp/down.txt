@@ -1,0 +1,40 @@
+# Mipiri workspace
+
+export SLACK_API_TOKEN="xoxb-861708542357-864466758288-N4sgxNDpvnsjx1G7t5lVVVI9"
+export SLACK_BIKE_CHANNEL_ID=
+export SLACK_BIKE_CHANNEL_NAME=bot-testing
+export SLACK_RUN_CHANNEL_ID=
+export SLACK_RUN_CHANNEL_NAME=bot-testing
+export SLACK_GENERAL_CHANNEL_ID=
+export SLACK_GENERAL_CHANNEL_NAME=bot-testing
+
+
+
+{
+    'type': 'view_submission', 
+    'team': {'id': 'TRBLUFYAH', 'domain': 'mipiri'}, 
+    'user': {'id': 'URBLUFZFF', 'username': 'msoranno', 'name': 'msoranno', 'team_id': 'TRBLUFYAH'}, 
+    'api_app_id': 'AR2VBECE7', 
+    'token': 'Ol1Y4KZRMUcPvvcC7yUxt16e', 
+    'trigger_id': '1899881725092.861708542357.f336d2200519a3e811bc8aa05e3b2c48', 
+    'view': {'id': 'V01RUTS9P71', 'team_id': 'TRBLUFYAH', 'type': 'modal', 
+        'blocks': [
+            {'type': 'section', 'block_id': 'input000', 
+                'text': {'type': 'mrkdwn', 'text': 'Select delivery group', 'verbatim': False}, 
+                'accessory': {'type': 'static_select', 'action_id': 'action000',
+                    'placeholder': {'type': 'plain_text', 'text': 'Select', 'emoji': True}, 
+                    'options': [
+                        {'text': {'type': 'plain_text', 'text': 'mad01', 'emoji': True}, 'value': 'dg-0'}, 
+                        {'text': {'type': 'plain_text', 'text': 'mad02', 'emoji': True}, 'value': 'dg-1'}, 
+                        {'text': {'type': 'plain_text', 'text': 'cac01', 'emoji': True}, 'value': 'dg-2'}, 
+                        {'text': {'type': 'plain_text', 'text': 'tst01', 'emoji': True}, 'value': 'dg-3'}, 
+                        {'text': {'type': 'plain_text', 'text': 'imf01', 'emoji': True}, 'value': 'dg-4'}]}}], 
+    'private_metadata': '', 
+    'callback_id': 'https://hooks.slack.com/commands/TRBLUFYAH/1878944298311/R25vOO8Sh8wKo1vDvgVkla4i', 
+    'state': {
+        'values': {
+            'input000': {
+                'action000': {
+                    'type': 'static_select', 
+                    'selected_option': {'text': {'type': 'plain_text', 'text': 'tst01', 'emoji': True}, 
+                    'value': 'dg-3'}}}}}, 'hash': '1616591516.3d7B9IFA', 'title': {'type': 'plain_text', 'text': 'Token vault request', 'emoji': True}, 'clear_on_close': False, 'notify_on_close': False, 'close': None, 'submit': {'type': 'plain_text', 'text': 'Submit', 'emoji': True}, 'previous_view_id': None, 'root_view_id': 'V01RUTS9P71', 'app_id': 'AR2VBECE7', 'external_id': '', 'app_installed_team_id': 'TRBLUFYAH', 'bot_id': 'BREDQNA3A'}, 'response_urls': [], 'is_enterprise_install': False, 'enterprise': None}
