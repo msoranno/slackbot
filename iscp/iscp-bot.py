@@ -38,9 +38,13 @@ def outbound():
 		userID = message_action["user"]["id"]
 		userName =  message_action["user"]["username"]
 		triggerID =  message_action["trigger_id"]
+		callback_id = message_action["view"]["callback_id"]
 		dg_selected_value = message_action["view"]["state"]["values"]["input000"]["action000"]["selected_option"]["value"]
 		dg_selected_text = message_action["view"]["state"]["values"]["input000"]["action000"]["selected_option"]["text"]["text"] 
-		print(userID,userName,triggerID,dg_selected_value,dg_selected_text)
+		print('view_submission:',userID,userName,triggerID,dg_selected_value,dg_selected_text,callback_id)
+
+		x = threading.Thread(target=get_vault_token,args=(triggerID,callback_id,client,dg_selected_text))
+		x.start()		
 
 		
 	if message_type == "block_actions":
@@ -50,7 +54,9 @@ def outbound():
 		blockID = message_action["actions"][0]["block_id"]
 		userID = message_action["user"]["id"]
 		userName =  message_action["user"]["username"]
-		print(actionID,blockID,userID,userName)
+		print('block_actions:',actionID,blockID,userID,userName)
+		
+
 
 	
 	# Making empty responses to make slack api happy
@@ -129,8 +135,7 @@ def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 										{"text": {"type": "plain_text","text": "imf01"},"value": "dg-4"}
 									]
 							}
-						},
-						{"type": "section", "text": {"type": "mrkdwn","text": ":warning: token: "+str(vaultToken)}}						
+						}
 
 					]					
 				}
@@ -141,18 +146,25 @@ def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 	res = requests.post(callback_id, json=message)
 	print('respuesta:',res)
 
-def get_vault_token(trigger_id,callback_id,client):
+def get_vault_token(trigger_id,callback_id,client,dg):
 
-	fakeToken = "12345"
+	#-----
+	# Aqui se supone que iremos a buscar el token a vault
+	#----
 	
+	fakeToken = "12345"
+
+	# Una vez que tengamos el token de vault repintamos.
+	print('im here', dg)
 	open_dialog = client.views_open(
 				trigger_id = trigger_id,
+				response_action= "push",
 				view={
 					"type": "modal",
 					"callback_id": callback_id,
 					"title": {"type": "plain_text",	"text": "Token vault request"},
 					"blocks": [
-						{"type": "section", "text": {"type": "mrkdwn","text": ":warning: vault-token: "+fakeToken}}					
+						{"type": "section", "text": {"type": "mrkdwn","text": ":warning: vault-token for [ "+dg+" ]: "+fakeToken}}					
 					]					
 				}
 			)
@@ -164,7 +176,7 @@ def get_vault_token(trigger_id,callback_id,client):
 
 def cantHelp(channel_id,user,web_client,callback_id):
     web_client.chat_postMessage(channel=channel_id, blocks = [
-      {"type": "section", "text": {"type": "mrkdwn","text":f"Hello <@{user}>!  ¯\_(ツ)_/¯  sorry, can't help you with that."}}
+      {"type": "section", "text": {"type": "mrkdwn","text":f"Hello <@{user}>!  ¯\_(ツ)_/¯  sorry, can't help you with that. Try with help"}}
       ])
     # response to Slack after processing is finished
     message = {"text": txtBye}
