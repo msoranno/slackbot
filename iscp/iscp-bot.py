@@ -112,9 +112,11 @@ def inbound():
 
 def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 	
-	open_dialog = client.views_open(
-				trigger_id = trigger_id,
-				view={
+	
+	# Esta vista tiene que ser dinamica y aoutollenarse con los DGs a los que pertenece el usuario.
+	# Por lo que en este punto hay que ir al IAM a recoger los dg a los que pertenece el usuario.
+	
+	json_view={
 					"type": "modal",
 					"callback_id": callback_id,
 					"title": {"type": "plain_text",	"text": "Token vault request"},
@@ -139,6 +141,10 @@ def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 
 					]					
 				}
+	
+	open_dialog = client.views_open(
+				trigger_id = trigger_id,
+				view=json_view
 			)
 
 	# response to Slack after processing is finished
