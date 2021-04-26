@@ -76,6 +76,7 @@ def inbound():
 	channel_id = slack_request["channel_id"]
 	user_id = slack_request["user_id"]
 	user_name =slack_request["user_name"]
+	user_email = get_user_mail(user_id)
 	
 	
 	#print("-----------------------------------------------------------------")
@@ -105,16 +106,55 @@ def inbound():
 		x.start()		
 		return txtWait
 
+@app.route('/', methods=['GET'])
+def test():
+	return Response('It works!')
 
 #------------------------------------------------------------------------------------------------------------------------------------
 # FUNCTIONS
 #------------------------------------------------------------------------------------------------------------------------------------
 
+def login_iam():
+	#print('client_id:' ,iam_client_id, 'client_secret:', iam_client_secret, 'username:', iam_user, 'password:', iam_pass, 'grant_type:','password','iam_ca_file:',iam_ca_file, 'iam_realm:', iam_realm)
+	data = {'client_id': iam_client_id, 'client_secret': iam_client_secret, 'username': iam_user, 'password': iam_pass, 'grant_type':'password'}
+	headers = {"Content-Type":"application/x-www-form-urlencoded"}
+	ep_url = iam_url+"/auth/realms/"+iam_realm+"/protocol/openid-connect/token"
+	print('ep_url:', ep_url)
+	r = requests.post(ep_url,headers=headers,data=data, verify=iam_ca_file)
+	if r.status_code == 200:
+		return r.json().get('access_token')
+	else:
+		print('Error')
+		print(r.json())
+	
+
+def get_user_mail(user_id):
+	params = {'token': slack_bot_user_oauth_token, 'user': user_id}
+	ep_url = slack_api+"/users.info"
+	r = requests.get(ep_url,params=params)
+	if r.status_code == 200:
+		return r.json().get('user').get('profile').get('email')
+	else:
+		print('Error')
+		print(r.json())
+
 def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 	
 	
-	# Esta vista tiene que ser dinamica y aoutollenarse con los DGs a los que pertenece el usuario.
+	# La lista de dgs hay que llenarla desde el iam.
 	# Por lo que en este punto hay que ir al IAM a recoger los dg a los que pertenece el usuario.
+	iam_access_token = login_iam()
+	print(iam_access_token)
+
+	dgs="mad01,mad02,cac01,tst01,imf01,maraco"
+
+	# Dinamically populate the json_view with the delivery groups found on iam.
+	dgs_options = []
+	dg_index = 0
+	for dg in dgs.split(','):
+		#print(dg)
+		dgs_options.append({"text": {"type": "plain_text","text": dg},"value": "dg-"+str(dg_index)})
+		dg_index += 1
 	
 	json_view={
 					"type": "modal",
@@ -129,19 +169,13 @@ def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
 							"accessory": {
 								"action_id": "action000","type": "static_select",
 								"placeholder": {"type": "plain_text","text": "Select"},
-									"options": [
-										{"text": {"type": "plain_text","text": "mad01"},"value": "dg-0"},
-										{"text": {"type": "plain_text","text": "mad02"},"value": "dg-1"},
-										{"text": {"type": "plain_text","text": "cac01"},"value": "dg-2"},
-										{"text": {"type": "plain_text","text": "tst01"},"value": "dg-3"},
-										{"text": {"type": "plain_text","text": "imf01"},"value": "dg-4"}
-									]
+									"options": dgs_options
 							}
 						}
 
 					]					
 				}
-	
+	# This will open the dialog to choose delivery group
 	open_dialog = client.views_open(
 				trigger_id = trigger_id,
 				view=json_view
@@ -190,7 +224,7 @@ def cantHelp(channel_id,user,web_client,callback_id):
     print('respuesta:',res)
 
 def help(channel_id,user,web_client,callback_id):
-    web_client.chat_postMessage(channel=channel_id,text=f"Hello <@{user}>! , i can help you with this:")
+    web_client.chat_postMessage(channel=channel_id,text=f"Hello <@{user}>! , can help you with this:")
     web_client.chat_postMessage(channel=channel_id, blocks = [
       {"type": "section", "text": {"type": "mrkdwn","text": "*- [/iscpbot* help] view this help."}},
       {"type": "section", "text": {"type": "mrkdwn","text": "*- [/iscpbot* get-vault-token] request a token vault"}},
@@ -201,23 +235,27 @@ def help(channel_id,user,web_client,callback_id):
     print('respuesta:',res)
 
 
-@app.route('/', methods=['GET'])
-def test():
-	return Response('It works!')
 
 #------
 #Main
 #------
 
 # Globals
-ssl_context = ssl_lib.create_default_context(cafile=certifi.where())
-client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'], ssl=ssl_context)
-txtWait = "please wait...."
-
-
-txtBye = "request completed"
-user_id = ""
-callback_id = ""
+slack_api                     = "https://slack.com/api"
+slack_bot_user_oauth_token    = os.environ['SLACK_API_TOKEN']
+iam_url                       = os.environ['IAM_URL']
+iam_user                      = os.environ['IAM_USER']
+iam_pass                      = os.environ['IAM_PASS']
+iam_client_id                 = os.environ['IAM_CLIENT_ID']
+iam_client_secret             = os.environ['IAM_CLIENT_SECRET']
+iam_realm                     = os.environ['IAM_REALM']
+iam_ca_file                   = os.environ['IAM_CA_FILE']
+ssl_context                   = ssl_lib.create_default_context(cafile=certifi.where())
+client                        = slack.WebClient(token=slack_bot_user_oauth_token, ssl=ssl_context)
+txtWait                       = "please wait...."
+txtBye                        = "request completed"
+user_id                       = ""
+callback_id                   = ""
 
 #------------------
 # DataHolders
