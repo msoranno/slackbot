@@ -76,7 +76,8 @@ def inbound():
 	channel_id = slack_request["channel_id"]
 	user_id = slack_request["user_id"]
 	user_name =slack_request["user_name"]
-	user_email = get_user_mail(user_id)
+	#user_email = get_user_mail(user_id)
+	user_email = "miguel.angel.soranno@ibm.com"
 	
 	
 	#print("-----------------------------------------------------------------")
@@ -92,7 +93,7 @@ def inbound():
 	if text.lower() == "get-vault-token":
 		canhelp = 1
 		# starting a new thread for doing the actual processing
-		x = threading.Thread(target=ask_for_dg,args=(trigger_id,callback_id,client))
+		x = threading.Thread(target=ask_for_dg,args=(trigger_id,callback_id,client,user_email))
 		x.start()		
 		return txtWait
 
@@ -114,19 +115,67 @@ def test():
 # FUNCTIONS
 #------------------------------------------------------------------------------------------------------------------------------------
 
-def login_iam():
+def getVaultClientToken(sa_token_file_location,vault_role):
+
+	# get the sa token
+	sa_token = ""
+	with open(sa_token_file_location, 'r') as content_file:
+		sa_token = content_file.read()    
+
+	# get client token
+	vault_dict = {"jwt": sa_token.strip(), "role": vault_role}
+	r = requests.post(vault_api_k8s_login_ep, json=vault_dict, verify=False)
+	if r.status_code == 200 or r.status_code == 201:
+		print("[info-vault] - " , r.status_code)
+		json_result = r.json()  
+		result = json_result['auth']['client_token']
+		return result
+	else:
+		print("Error: Get client token process from vault failed, code: " + str(r.status_code) )
+		print(r.json())
+
+def iam_login():
 	#print('client_id:' ,iam_client_id, 'client_secret:', iam_client_secret, 'username:', iam_user, 'password:', iam_pass, 'grant_type:','password','iam_ca_file:',iam_ca_file, 'iam_realm:', iam_realm)
 	data = {'client_id': iam_client_id, 'client_secret': iam_client_secret, 'username': iam_user, 'password': iam_pass, 'grant_type':'password'}
 	headers = {"Content-Type":"application/x-www-form-urlencoded"}
 	ep_url = iam_url+"/auth/realms/"+iam_realm+"/protocol/openid-connect/token"
-	print('ep_url:', ep_url)
+	#print('ep_url:', ep_url)
 	r = requests.post(ep_url,headers=headers,data=data, verify=iam_ca_file)
 	if r.status_code == 200:
 		return r.json().get('access_token')
 	else:
 		print('Error')
 		print(r.json())
-	
+
+def iam_get_users(jwt_token,user_email):
+	#print(jwt_token)
+	headers = {"Authorization": "Bearer " + jwt_token , "Content-Type" : "application/json"}
+	ep_url = iam_url+"/auth/admin/realms/"+iam_realm+"/users"
+	#print('ep_url:', ep_url)
+	r = requests.get(ep_url, headers=headers, verify=iam_ca_file)
+	print(r.status_code)
+	if r.status_code == 200:
+		for iamUser in r.json():
+			if user_email == iamUser.get('email'):
+				print('User found on IAM:',iamUser.get('id'),iamUser.get('username'), iamUser.get('email'))
+				return iamUser.get('id')
+				break
+	else:
+		print('Error')
+		print(r.json())	
+
+def iam_get_user_groups(jwt_token,iam_user_id):
+	#print(jwt_token)
+	headers = {"Authorization": "Bearer " + jwt_token , "Content-Type" : "application/json"}
+	ep_url = iam_url+"/auth/admin/realms/"+iam_realm+"/users/"+iam_user_id+"/groups"
+	print('ep_url:', ep_url)
+	r = requests.get(ep_url, headers=headers, verify=iam_ca_file)
+	print(r.status_code)
+	if r.status_code == 200:
+		return r.json()
+	else:
+		print('Error')
+		print(r.json())	
 
 def get_user_mail(user_id):
 	params = {'token': slack_bot_user_oauth_token, 'user': user_id}
@@ -138,64 +187,62 @@ def get_user_mail(user_id):
 		print('Error')
 		print(r.json())
 
-def ask_for_dg(trigger_id,callback_id,client,vaultToken = "None"):
+def ask_for_dg(trigger_id,callback_id,client,user_email,vaultToken = "None"):
 	
-	
-	# La lista de dgs hay que llenarla desde el iam.
-	# Por lo que en este punto hay que ir al IAM a recoger los dg a los que pertenece el usuario.
-	iam_access_token = login_iam()
-	print(iam_access_token)
+	iam_access_token   = iam_login()
+	iam_user_id        = iam_get_users(iam_access_token,user_email)
+	if not iam_user_id:
+		# response to Slack after processing is finished
+		message = {"text": "Something whent wrong in your request"}
+		res = requests.post(callback_id, json=message)
+		print('respuesta:',res)
+	else:
+		iam_user_groups = iam_get_user_groups(iam_access_token,iam_user_id)
+		#dgs="mad01,mad02,cac01,tst01,imf01,maraco"
 
-	dgs="mad01,mad02,cac01,tst01,imf01,maraco"
-
-	# Dinamically populate the json_view with the delivery groups found on iam.
-	dgs_options = []
-	dg_index = 0
-	for dg in dgs.split(','):
-		#print(dg)
-		dgs_options.append({"text": {"type": "plain_text","text": dg},"value": "dg-"+str(dg_index)})
-		dg_index += 1
-	
-	json_view={
-					"type": "modal",
-					"callback_id": callback_id,
-					"title": {"type": "plain_text",	"text": "Token vault request"},
-					"submit": {"type": "plain_text","text": "Submit"},
-					"blocks": [
-						{
-							"type": "section",
-							"block_id": "input000",
-							"text": {"type": "mrkdwn","text": "Select delivery group"},
-							"accessory": {
-								"action_id": "action000","type": "static_select",
-								"placeholder": {"type": "plain_text","text": "Select"},
-									"options": dgs_options
+		# Dinamically populate the json_view with the delivery groups found on iam.
+		dgs_options = []
+		dg_index = 0
+		for group in iam_user_groups:
+			dg = group.get('name').split('_')[1]
+			dgs_options.append({"text": {"type": "plain_text","text": dg},"value": "dg-"+str(dg_index)})
+			dg_index += 1
+		
+		json_view={
+						"type": "modal",
+						"callback_id": callback_id,
+						"title": {"type": "plain_text",	"text": "Token vault request"},
+						"submit": {"type": "plain_text","text": "Submit"},
+						"blocks": [
+							{
+								"type": "section",
+								"block_id": "input000",
+								"text": {"type": "mrkdwn","text": "Select delivery group"},
+								"accessory": {
+									"action_id": "action000","type": "static_select",
+									"placeholder": {"type": "plain_text","text": "Select"},
+										"options": dgs_options
+								}
 							}
-						}
 
-					]					
-				}
-	# This will open the dialog to choose delivery group
-	open_dialog = client.views_open(
-				trigger_id = trigger_id,
-				view=json_view
-			)
-
-	# response to Slack after processing is finished
-	message = {"text": txtBye}
-	res = requests.post(callback_id, json=message)
-	print('respuesta:',res)
+						]					
+					}
+		# This will open the dialog to choose delivery group
+		open_dialog = client.views_open(
+					trigger_id = trigger_id,
+					view=json_view
+				)
+		# response to Slack after processing is finished
+		message = {"text": txtBye}
+		res = requests.post(callback_id, json=message)
+		print('respuesta:',res)
 
 def get_vault_token(trigger_id,callback_id,client,dg):
 
-	#-----
-	# Aqui se supone que iremos a buscar el token a vault
-	#----
-	
-	fakeToken = "12345"
+	vaultClientToken=""
+	vaultClientToken = getVaultClientToken(sa_token_file_location,'dgs_write_'+dg)
 
-	# Una vez que tengamos el token de vault repintamos.
-	print('im here', dg)
+	# Repaint!
 	open_dialog = client.views_open(
 				trigger_id = trigger_id,
 				response_action= "push",
@@ -204,7 +251,7 @@ def get_vault_token(trigger_id,callback_id,client,dg):
 					"callback_id": callback_id,
 					"title": {"type": "plain_text",	"text": "Token vault request"},
 					"blocks": [
-						{"type": "section", "text": {"type": "mrkdwn","text": ":warning: vault-token for [ "+dg+" ]: "+fakeToken}}					
+						{"type": "section", "text": {"type": "mrkdwn","text": ":warning: vault-token for [ "+dg+" ]: "+vaultClientToken}}					
 					]					
 				}
 			)
@@ -250,6 +297,10 @@ iam_client_id                 = os.environ['IAM_CLIENT_ID']
 iam_client_secret             = os.environ['IAM_CLIENT_SECRET']
 iam_realm                     = os.environ['IAM_REALM']
 iam_ca_file                   = os.environ['IAM_CA_FILE']
+sa_token_file_location        = os.environ['SA_TOKEN_FILE_LOCATION']
+vault_url                     = os.environ['VAULT_URL'] # https://x-vault.x-vault:8200
+vault_api_version             = os.environ['VAULT_API_VERSION'] # v1
+vault_api_k8s_login_ep        = vault_url + '/' + vault_api_version + '/' + 'auth/kubernetes/login'
 ssl_context                   = ssl_lib.create_default_context(cafile=certifi.where())
 client                        = slack.WebClient(token=slack_bot_user_oauth_token, ssl=ssl_context)
 txtWait                       = "please wait...."
